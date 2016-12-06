@@ -11,7 +11,6 @@ class List:
         for index in range(0, MongoHelper.getAvailableId() - 1):
             site = MongoHelper.getResultByIndex(index)
 
-
             if site is not None:
                 url = site["Url"]
                 sitename = take_sitename(url)
@@ -27,7 +26,7 @@ class List:
                 in_scope = result.get_found()
                 site["list"] = in_scope
 
-                # update
+                MongoHelper.updateInfo(site)
 
 
 # def end():
