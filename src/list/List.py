@@ -1,6 +1,8 @@
 import MongoHelper
 from list import Specialized
 from list.Crawler import Crawler
+from maps.Maps import Maps
+from ml.ML import ML
 
 
 class List:
@@ -28,9 +30,16 @@ class List:
 
                 MongoHelper.updateInfo(site)
 
+        self.end()
 
-# def end():
-# ml
+    def end(self):
+        if self.check_scope:
+            ml = ML(True)
+            ml.start()
+        else:
+            maps = Maps()
+            maps.start()
+
 
 def take_sitename(url):
     splitter = url.split('.')[0]

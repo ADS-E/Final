@@ -7,12 +7,12 @@ collection = client["information"]
 posts = db.information
 
 
-def insertURLInfo(url, content, webshop, inscope, category, meta, address, year):
+def insertURLInfo(url, content, year):
     id = getAvailableId()
     print(id)
-    post = {"id": id, "URL": url, "content": content, "webshop": webshop, "inscope": inscope, "category": category,
-            "meta": meta,
-            "address": address, "year": year}
+    post = {"id": id, "URL": url, "content": content, "webshop": False, "inscope": False, "category": '',
+            "meta": '',
+            "address": '', "year": year, "maps": 0, "list": False, "ml": False}
     try:
         posts.insert_one(post)
     except:

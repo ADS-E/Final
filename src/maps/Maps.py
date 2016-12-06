@@ -1,8 +1,11 @@
 import googlemaps
 import pandas as pd
 import re
-from googlemaps import places
 import csv
+
+from googlemaps import places
+
+from list.List import List
 
 
 class Maps:
@@ -31,6 +34,9 @@ class Maps:
             writer.writerow(["URL", "Address", "In-scope", "Types"])
             for key, value in self.allresults.items():
                 writer.writerow([key, value[0], value[1], value[2::]])
+
+        list = List(True)
+        list.start()
 
     def get_urls(self, file):
         data = pd.read_csv(file, engine="python")
