@@ -1,11 +1,10 @@
 import re
+import threading
+
+import lxml.html
 from lxml import etree
 
-import requests
-import threading
-import lxml.html
-
-import CsvHelper
+from helpers import CsvHelper
 
 
 class Spider(threading.Thread):
