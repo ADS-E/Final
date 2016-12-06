@@ -3,8 +3,8 @@ import time
 from queue import Queue
 
 from helpers import CsvHelper
-from top.Result import UrlResult
-from top.Spider import Spider
+from list.Result import UrlResult
+from list.Spider import Spider
 
 threads = []
 

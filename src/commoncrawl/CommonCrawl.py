@@ -1,61 +1,71 @@
 import requests
-import argparse
-import time
 import json
 import io
 import gzip
-import csv
-import codecs
-import pymongo
 from urllib.parse import urlparse
-
-from bs4 import BeautifulSoup
 
 import sys
 import imp
 
 import MongoHelper
 
-imp.reload(sys)
-# sys.setdefaultencoding('utf8')
 
-domain = '.nl'
+class CommonCrawl:
+    def __init__(self):
+        imp.reload(sys)
+        self.domain = '.nl'
+        self.index_list = ["2015-27"]
 
-# list of available indices
-index_list = ["2015-27"]
+    def start(self):
+        record_list = self.search_domain()
+        link_list = []
 
+        for link in record_list:
+            html_content = download_page(link, self.index_list[0])
+            year = int(self.index_list[0][:4])
 
-#
-# Searches the Common Crawl Index for a domain.
-#
-def search_domain(domain):
-    record_list = set()
+            MongoHelper.insertURLInfo2(link, html_content, year)
+            # print(html_content)
 
-    print("[*] Trying target domain: %s" % domain)
+            print("[*] Retrieved %d bytes for %s" % (len(html_content), link))
+            print(html_content)
 
-    for index in index_list:
+        print("[*] Total external links discovered: %d" % len(link_list))
 
-        print("[*] Trying index %s" % index)
+        # def end():
+        # ML.start()
 
-        cc_url = "http://index.commoncrawl.org/CC-MAIN-%s-index?" % index
-        cc_url += "url=%s&matchType=domain&output=json" % domain
+    #
+    # Searches the Common Crawl Index for a domain.
+    #
+    def search_domain(self):
+        record_list = set()
 
-        response = requests.get(cc_url)
+        print("[*] Trying target domain: %s" % self.domain)
 
-        if response.status_code == 200:
-            records = response.content.decode('utf-8').splitlines()
+        for index in self.index_list:
 
-            for record in records:
-                rec = json.loads(record)
-                url = get_base_url(rec)
+            print("[*] Trying index %s" % index)
 
-                record_list.add(url)
+            cc_url = "http://index.commoncrawl.org/CC-MAIN-%s-index?" % index
+            cc_url += "url=%s&matchType=domain&output=json" % self.domain
 
-            print("[*] Added %d results." % len(records))
+            response = requests.get(cc_url)
 
-    print("[*] Found a total of %d hits." % len(record_list))
+            if response.status_code == 200:
+                records = response.content.decode('utf-8').splitlines()
 
-    return record_list
+                for record in records:
+                    rec = json.loads(record)
+                    url = get_base_url(rec)
+
+                    record_list.add(url)
+
+                print("[*] Added %d results." % len(records))
+
+        print("[*] Found a total of %d hits." % len(record_list))
+
+        return record_list
 
 
 #
@@ -86,36 +96,6 @@ def download_page(url, index):
         warc, header, response = data.decode().split('\r\n\r\n', 2)
 
     return response
-
-
-#
-# Extract links from the HTML
-#
-def extract_external_links(url, html_content):
-    parser = BeautifulSoup(html_content)
-
-    links = parser.find_all("a")
-    link_list = []
-
-    if links:
-        for link in links:
-            href = link.attrs.get("href")
-
-            if href is not None:
-
-                if url in href:
-                    if href.startswith("http"):
-                        print("[*] Discovered link: %s" % href)
-
-                        record = get_record(href, index_list[0])
-                        if record is not None:
-                            print("[/] Discovered urll: %s" % record['url'])
-                            if href == record['url']:
-                                print('lelelel: %s' % href)
-
-                        link_list.append(href)
-
-    return link_list
 
 
 def get_base_url(record):
@@ -156,24 +136,3 @@ def get_response(record):
     resp = requests.get(prefix + record['filename'], headers={'Range': 'bytes={}-{}'.format(offset, offset_end)})
 
     return resp
-
-
-record_list = search_domain(domain)
-link_list = []
-
-for link in record_list:
-    html_content = download_page(link, index_list[0])
-    year = int(index_list[0][:4])
-
-    MongoHelper.insertURLInfo2(link, html_content, year)
-    # print(html_content)
-
-    print("[*] Retrieved %d bytes for %s" % (len(html_content), link))
-    print(html_content)
-
-    link_list = extract_external_links(link, html_content)
-
-print("[*] Total external links discovered: %d" % len(link_list))
-
-#def end():
-    #ML.start()
