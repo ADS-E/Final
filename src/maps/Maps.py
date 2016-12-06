@@ -3,6 +3,8 @@ import pandas as pd
 import re
 from googlemaps import places
 import csv
+import MongoHelper
+from list.List import List
 
 
 class Maps:
@@ -12,25 +14,19 @@ class Maps:
         self.url_address = ""
 
     def start(self):
-        urlList = self.get_urls("withinscope_new.csv")
-        for url in urlList:
-            results = self.scan_url(url)
-            inscope = self.determine_scope(results)
-            print(url)
-            print(url_address)
-            print(results)
-            print(inscope)
-            results = [url_address] + [inscope] + results
-            print(results)
-            self.allresults[url] = results
-            url_address = ""
+        for index in range(0, MongoHelper.getAvailableId() - 1):
+            site = MongoHelper.getResultByIndex(index)
+            if site is not None:
+                results = self.scan_url(site["URL"])
+                inscope = self.determine_scope(results)
+                results = [url_address] + [inscope] + results
+                self.allresults[site["URL"]] = results
+                url_address = ""
+                site["maps"] = inscope
+                MongoHelper.updateInfo(site["id"],site)
 
     def end(self):
-        with open('resultsWithinScopeAddress.csv', 'w') as csv_file:
-            writer = csv.writer(csv_file)
-            writer.writerow(["URL", "Address", "In-scope", "Types"])
-            for key, value in self.allresults.items():
-                writer.writerow([key, value[0], value[1], value[2::]])
+        List.start()
 
     def get_urls(self, file):
         data = pd.read_csv(file, engine="python")
@@ -105,4 +101,6 @@ class Maps:
                         return 0
                     elif record == "car_rental" or record == "lodging":
                         return 0
-        return 1
+                if "point_of_interest" in results or "establishment" in results:
+                    return 1
+        return -1
