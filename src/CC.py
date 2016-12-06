@@ -14,6 +14,8 @@ from bs4 import BeautifulSoup
 import sys
 import imp
 
+import MongoHelper
+
 imp.reload(sys)
 # sys.setdefaultencoding('utf8')
 
@@ -161,7 +163,9 @@ link_list = []
 
 for link in record_list:
     html_content = download_page(link, index_list[0])
+    year = int(index_list[0][:4])
 
+    MongoHelper.insertURLInfo2(link, html_content, year)
     # print(html_content)
 
     print("[*] Retrieved %d bytes for %s" % (len(html_content), link))
@@ -171,11 +175,5 @@ for link in record_list:
 
 print("[*] Total external links discovered: %d" % len(link_list))
 
-with codecs.open("%s-links.csv" % domain, "wb", encoding="utf-8") as output:
-    fields = ["URL"]
-
-    logger = csv.DictWriter(output, fieldnames=fields)
-    logger.writeheader()
-
-    for link in link_list:
-        logger.writerow({"URL": link})
+#def end():
+    #ML.start()
