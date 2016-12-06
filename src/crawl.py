@@ -2,18 +2,20 @@ import requests
 import argparse
 import time
 import json
-import StringIO
+import io
 import gzip
 import csv
 import codecs
-from urlparse import urlparse
+import pymongo
+from urllib.parse import urlparse
 
 from bs4 import BeautifulSoup
 
 import sys
+import imp
 
-reload(sys)
-sys.setdefaultencoding('utf8')
+imp.reload(sys)
+# sys.setdefaultencoding('utf8')
 
 domain = '.nl'
 
@@ -27,11 +29,11 @@ index_list = ["2015-27"]
 def search_domain(domain):
     record_list = set()
 
-    print "[*] Trying target domain: %s" % domain
+    print("[*] Trying target domain: %s" % domain)
 
     for index in index_list:
 
-        print "[*] Trying index %s" % index
+        print("[*] Trying index %s" % index)
 
         cc_url = "http://index.commoncrawl.org/CC-MAIN-%s-index?" % index
         cc_url += "url=%s&matchType=domain&output=json" % domain
@@ -39,7 +41,7 @@ def search_domain(domain):
         response = requests.get(cc_url)
 
         if response.status_code == 200:
-            records = response.content.splitlines()
+            records = response.content.decode('utf-8').splitlines()
 
             for record in records:
                 rec = json.loads(record)
@@ -47,9 +49,9 @@ def search_domain(domain):
 
                 record_list.add(url)
 
-            print "[*] Added %d results." % len(records)
+            print("[*] Added %d results." % len(records))
 
-    print "[*] Found a total of %d hits." % len(record_list)
+    print("[*] Found a total of %d hits." % len(record_list))
 
     return record_list
 
@@ -70,7 +72,7 @@ def download_page(url, index):
 
     # The page is stored compressed (gzip) to save space
     # We can extract it using the GZIP library
-    raw_data = StringIO.StringIO(resp.content)
+    raw_data = io.BytesIO(resp.content)
     f = gzip.GzipFile(fileobj=raw_data)
 
     # What we have now is just the WARC response, formatted:
@@ -79,10 +81,7 @@ def download_page(url, index):
     response = ""
 
     if len(data):
-        try:
-            warc, header, response = data.strip().split('\r\n\r\n', 2)
-        except:
-            pass
+        warc, header, response = data.decode().split('\r\n\r\n', 2)
 
     return response
 
@@ -104,14 +103,13 @@ def extract_external_links(url, html_content):
 
                 if url in href:
                     if href.startswith("http"):
-                        print "[*] Discovered link: %s" % href
+                        print("[*] Discovered link: %s" % href)
 
                         record = get_record(href, index_list[0])
                         if record is not None:
-                            print "[/] Discovered urll: %s" % record['url']
+                            print("[/] Discovered urll: %s" % record['url'])
                             if href == record['url']:
-                                print 'lelelel: %s' % href
-
+                                print('lelelel: %s' % href)
 
                         link_list.append(href)
 
@@ -137,7 +135,7 @@ def get_record(url, index):
     response = requests.get(cc_url)
 
     if response.status_code == 200:
-        records = response.content.splitlines()
+        records = response.content.decode('utf-8').splitlines()
         record = records[0]
         return json.loads(record)
 
@@ -166,11 +164,12 @@ for link in record_list:
 
     # print(html_content)
 
-    print "[*] Retrieved %d bytes for %s" % (len(html_content), link)
+    print("[*] Retrieved %d bytes for %s" % (len(html_content), link))
+    print(html_content)
 
     link_list = extract_external_links(link, html_content)
 
-print "[*] Total external links discovered: %d" % len(link_list)
+print("[*] Total external links discovered: %d" % len(link_list))
 
 with codecs.open("%s-links.csv" % domain, "wb", encoding="utf-8") as output:
     fields = ["URL"]
