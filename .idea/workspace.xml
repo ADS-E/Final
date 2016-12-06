@@ -2,21 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="be42774a-e405-4cf6-89ea-d1974e4a2562" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/helpers/MLHelper.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ml/Evaluator.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ml/ML.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ml/SetsHelper.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ml/csv/nonwebshops.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ml/csv/noscope.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ml/csv/scope.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ml/csv/webshops.csv" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/webcrawler/Crawler.py" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/MongoHelper.py" afterPath="$PROJECT_DIR$/src/MongoHelper.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/commoncrawl/CommonCrawl.py" afterPath="$PROJECT_DIR$/src/commoncrawl/CommonCrawl.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/list/List.py" afterPath="$PROJECT_DIR$/src/list/List.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/maps/Maps.py" afterPath="$PROJECT_DIR$/src/maps/Maps.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/webcrawler/Spider.py" afterPath="$PROJECT_DIR$/src/webcrawler/Spider.py" />
     </list>
     <ignored path="Final.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -43,7 +29,7 @@
       <file leaf-file-name="CommonCrawl.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/commoncrawl/CommonCrawl.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="500">
+            <state relative-caret-position="760">
               <caret line="38" column="14" selection-start-line="38" selection-start-column="14" selection-end-line="38" selection-end-column="14" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
@@ -89,7 +75,7 @@
       <file leaf-file-name="Maps.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/maps/Maps.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="600">
+            <state relative-caret-position="740">
               <caret line="37" column="16" selection-start-line="37" selection-start-column="16" selection-end-line="37" selection-end-column="16" />
               <folding>
                 <element signature="e#0#17#0" expanded="true" />
@@ -101,7 +87,7 @@
       <file leaf-file-name="ML.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/ml/ML.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="880">
+            <state relative-caret-position="878">
               <caret line="45" column="24" selection-start-line="45" selection-start-column="24" selection-end-line="45" selection-end-column="24" />
               <folding>
                 <element signature="e#0#36#0" expanded="true" />
@@ -145,7 +131,7 @@
       <file leaf-file-name="UrlResult.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/webcrawler/UrlResult.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="618">
+            <state relative-caret-position="800">
               <caret line="40" column="18" selection-start-line="40" selection-start-column="8" selection-end-line="40" selection-end-column="18" />
               <folding />
             </state>
@@ -196,7 +182,7 @@
   <component name="ProjectFrameBounds">
     <option name="x" value="-8" />
     <option name="y" value="-8" />
-    <option name="width" value="1936" />
+    <option name="width" value="1932" />
     <option name="height" value="1056" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
@@ -224,8 +210,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -402,6 +386,8 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scratches" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -713,10 +699,10 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-8" y="-8" width="1932" height="1056" extended-state="0" />
     <editor active="false" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.115625" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.115344465" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39957717" sideWeight="0.50208336" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -768,6 +754,60 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/maps/Maps.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="740">
+          <caret line="37" column="16" selection-start-line="37" selection-start-column="16" selection-end-line="37" selection-end-column="16" />
+          <folding>
+            <element signature="e#0#17#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ml/ML.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#36#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/webcrawler/Main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="80">
+          <caret line="6" column="50" selection-start-line="5" selection-start-column="3" selection-end-line="6" selection-end-column="50" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/helpers/MLHelper.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="460">
+          <caret line="23" column="4" selection-start-line="23" selection-start-column="4" selection-end-line="23" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/MongoHelper.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="12" column="80" selection-start-line="12" selection-start-column="73" selection-end-line="12" selection-end-column="80" />
+          <folding>
+            <element signature="e#0#31#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/webcrawler/UrlResult.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="800">
+          <caret line="40" column="18" selection-start-line="40" selection-start-column="8" selection-end-line="40" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/commoncrawl/CommonCrawl.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -778,14 +818,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/webcrawler/Crawler.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="860">
-          <caret line="43" column="57" selection-start-line="43" selection-start-column="51" selection-end-line="43" selection-end-column="57" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/webcrawler/Crawler.py" />
     <entry file="file://$PROJECT_DIR$/src/webcrawler/Spider.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="280">
@@ -818,18 +851,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="71" selection-start-line="0" selection-start-column="71" selection-end-line="0" selection-end-column="71" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/helpers/DecisionHelper.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/helpers/DecisionHelper.py" />
     <entry file="file://$PROJECT_DIR$/src/helpers/CsvHelper.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -856,14 +881,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/webcrawler/Crawler.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="860">
-          <caret line="43" column="57" selection-start-line="43" selection-start-column="51" selection-end-line="43" selection-end-column="57" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/webcrawler/Crawler.py" />
     <entry file="file://$PROJECT_DIR$/src/webcrawler/Spider.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="280">
@@ -901,14 +919,7 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/CC.py" />
-    <entry file="file://$PROJECT_DIR$/src/webcrawler/Crawler.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="43" column="57" selection-start-line="43" selection-start-column="51" selection-end-line="43" selection-end-column="57" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/webcrawler/Crawler.py" />
     <entry file="file://$PROJECT_DIR$/src/webcrawler/Spider.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -964,19 +975,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/helpers/DecisionHelper.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="18" column="31" selection-start-line="4" selection-start-column="4" selection-end-line="18" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/helpers/DecisionHelper.py" />
     <entry file="file://$PROJECT_DIR$/src/list/csv/scope_certain.csv">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="71" selection-start-line="0" selection-start-column="71" selection-end-line="0" selection-end-column="71" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -988,17 +991,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/webcrawler/Crawler.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="760">
-          <caret line="43" column="57" selection-start-line="43" selection-start-column="51" selection-end-line="43" selection-end-column="57" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/webcrawler/Crawler.py" />
     <entry file="file://$PROJECT_DIR$/src/webcrawler/UrlResult.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="618">
+        <state relative-caret-position="800">
           <caret line="40" column="18" selection-start-line="40" selection-start-column="8" selection-end-line="40" selection-end-column="18" />
           <folding />
         </state>
@@ -1050,7 +1046,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/commoncrawl/CommonCrawl.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="500">
+        <state relative-caret-position="760">
           <caret line="38" column="14" selection-start-line="38" selection-start-column="14" selection-end-line="38" selection-end-column="14" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
@@ -1086,7 +1082,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/maps/Maps.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="600">
+        <state relative-caret-position="740">
           <caret line="37" column="16" selection-start-line="37" selection-start-column="16" selection-end-line="37" selection-end-column="16" />
           <folding>
             <element signature="e#0#17#0" expanded="true" />
@@ -1106,7 +1102,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ml/ML.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="880">
+        <state relative-caret-position="878">
           <caret line="45" column="24" selection-start-line="45" selection-start-column="24" selection-end-line="45" selection-end-column="24" />
           <folding>
             <element signature="e#0#36#0" expanded="true" />
