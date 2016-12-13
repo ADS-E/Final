@@ -2,21 +2,20 @@ import pandas as pd
 
 
 def get_raw_data():
-    scope = pd.read_csv("webshops.csv", delimiter=';')
-    no_scope = pd.read_csv("nonwebshops.csv", delimiter=';')
+    scope = pd.read_csv("../ml/csv/webshops.csv", delimiter=';')
+    no_scope = pd.read_csv("../ml/csv/nonwebshops.csv", delimiter=';')
 
     scope_length = len(scope)
 
     data = pd.concat([scope, no_scope], ignore_index=True)
     data['Label'] = 0
-    data = data.iloc[0]
 
     for index, row in data.iterrows():
         label = 1 if index < scope_length else 0
         data.set_value(index, 'Label', label)
 
     # data = data.iloc[np.random.permutation(len(data))]
-    print(data)
+    #print(data)
 
     return data
 

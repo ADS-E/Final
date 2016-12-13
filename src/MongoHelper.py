@@ -10,7 +10,7 @@ posts = db.information
 def insertURLInfo(url, content, year):
     id = getAvailableId()
     print(id)
-    post = {"id": id, "URL": url, "content": content, "webshop": False, "inscope": False, "category": '',
+    post = {"id": id, "url": url, "content": content, "webshop": False, "inscope": False, "category": '',
             "meta": '',
             "address": '', "year": year, "maps": 0, "list": False, "ml": False}
     try:
@@ -30,10 +30,14 @@ def getResultByIndex(index):
 
 def getAvailableId():
     if posts.find().count() > 0:
-        return posts.find_one(sort=[("id", -1)])["id"]
+        return posts.find_one(sort=[("id", -1)])["id"] + 1
     else:
         return 1
 
 
 def getResultByURL(url):
     return posts.find_one({"URL": url})
+
+
+def count():
+    return posts.find().count()

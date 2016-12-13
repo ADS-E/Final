@@ -1,9 +1,11 @@
 from sklearn.externals import joblib
 from sklearn.naive_bayes import MultinomialNB
 
+import os.path
+import numpy as np
+
 import MongoHelper
 from helpers import MLHelper
-from list.Listing import Listing
 from ml import SetsHelper
 from webcrawler.Spider import Spider
 
@@ -13,37 +15,46 @@ class ML:
         self.check_scope = check_scope
 
     def start(self):
+        print("asdf: %s" % MongoHelper.count())
         print("---------- ML Starting Scope: %s ----------" % self.check_scope)
 
         plk = 'scope.pkl' if self.check_scope else 'webshop.pkl'
-        clf = joblib.load(plk)
 
-        if clf is None:
+        if os.path.isfile(plk):
+            clf = joblib.load(plk)
+        else:
             clf = self.build_classifier()
 
-        for index in range(0, MongoHelper.getAvailableId() - 1):
-            site = MongoHelper.getResultByIndex(index)
+        nr_of_items = MongoHelper.count()
+        print("Nr of items: %s" % nr_of_items)
+        for id in range(1, nr_of_items):
+            site = MongoHelper.getResultByIndex(id)
             url = site['url']
             content = site['content']
 
             spider = Spider(url, content)
             result = spider.process()
+            result.set_page_count(1)
 
             list = MLHelper.divide_one('PageCount', result.csv_format())
+            data = np.reshape(list, (1, -1))
 
-            value = clf.predict(list)
-            print(value)
+            predicted = np.asscalar(clf.predict(data)[0])
+            print("%s predicted: %s" % (url, predicted))
 
             if self.check_scope:
-                site['webshop'] = value
+                site['webshop'] = predicted
             else:
-                site['inscope'] = value
+                site['inscope'] = predicted
 
             MongoHelper.updateInfo(site)
-            self.end()
+
+        joblib.dump(clf, plk)
+        self.end()
 
     def end(self):
         print("---------- ML Ending Scope: %s ----------" % self.check_scope)
+        from list.Listing import Listing
 
         if not self.check_scope:
             listing = Listing(False)
@@ -61,3 +72,7 @@ class ML:
         clf.fit(X_train, y_train)
 
         return clf
+
+
+ml = ML(False)
+ml.start()

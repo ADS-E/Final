@@ -7,7 +7,6 @@ import imp
 import MongoHelper
 
 from urllib.parse import urlparse
-from ml.ML import ML
 
 
 class CommonCrawl:
@@ -23,14 +22,16 @@ class CommonCrawl:
         link_list = []
 
         for link in record_list:
-            html_content = download_page(link, self.index_list[0])
-            year = int(self.index_list[0][:4])
+            for x in range(0, 3):
+                html_content = download_page(link, self.index_list[0])
+                year = int(self.index_list[0][:4])
 
-            MongoHelper.insertURLInfo(link, html_content, year)
-            # print(html_content)
+                MongoHelper.insertURLInfo(link, html_content, year)
+                # print(html_content)
 
-            print("[*] Retrieved %d bytes for %s" % (len(html_content), link))
-            print(html_content)
+                print("[*] Retrieved %d bytes for %s" % (len(html_content), link))
+
+            break
 
         print("[*] Total external links discovered: %d" % len(link_list))
 
@@ -38,6 +39,8 @@ class CommonCrawl:
 
     def end(self):
         print("---------- CommonCrawl Ending ----------")
+
+        from ml.ML import ML
 
         ml = ML(False)
         ml.start()
