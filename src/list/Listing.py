@@ -10,13 +10,13 @@ class Listing:
     def start(self):
         print("---------- Listing Starting Scope: %s ----------" % self.check_scope)
 
-        for index in range(0, MongoHelper.getAvailableId() - 1):
-            site = MongoHelper.getResultByIndex(index)
+        for id in MongoHelper.getAllIds():
+            site = MongoHelper.getResultById(id)
 
             if site is not None:
                 url = site["url"]
                 sitename = take_sitename(url)
-                csv_file = 'csv/scope_certain.csv' if self.check_scope else 'csv/webshop_certain.csv'
+                csv_file = '../list/csv/scope_certain.csv' if self.check_scope else '../list/csv/webshop_certain.csv'
 
                 result = Crawler(sitename, csv_file).run()
 
@@ -25,27 +25,29 @@ class Listing:
                 else:
                     result.set_found(Specialized.check_winkelsnederland(sitename))
 
-                in_scope = result.get_found()
-                site["list"] = in_scope
+                value = result.get_found()
+                site["list"] = value
+
+                print("Listing: %s is: %s" % (url, value))
 
                 MongoHelper.updateInfo(site)
 
         self.end()
 
     def end(self):
-        print("---------- Listing Starting Scope: %s ----------" % self.check_scope)
-
-        from ml.ML import ML
-        from maps.Maps import Maps
+        print("---------- Listing Ending Scope: %s ----------" % self.check_scope)
 
         if self.check_scope:
+            from ml.ML import ML
+
             ml = ML(True)
             ml.start()
         else:
-            maps = Maps()
-            maps.start()
+            from Decider import Decider
+
+            decider = Decider(False)
+            decider.start()
 
 
 def take_sitename(url):
-    splitter = url.split('.')[0]
-    return splitter[len(splitter) - 2]
+    return url.split('.')[1]

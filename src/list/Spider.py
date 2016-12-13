@@ -19,7 +19,7 @@ class Spider(threading.Thread):
     def run(self):
         """"Get an url from the queue, process the url and notify the queue the task on the retrieved item is done.
         Continue this process while the queue has items"""
-        print("%s running" % self.name)
+        #print("%s running" % self.name)
 
         while not self.queue.empty():
             listUrl = self.queue.get()

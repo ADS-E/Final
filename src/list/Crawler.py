@@ -34,7 +34,7 @@ class Crawler:
             t.join()
         end = time.clock()
 
-        print('Crawling took %s seconds' % (end - start))
+        #print('Crawling took %s seconds' % (end - start))
 
         return self.result
 

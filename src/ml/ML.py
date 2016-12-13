@@ -15,7 +15,6 @@ class ML:
         self.check_scope = check_scope
 
     def start(self):
-        print("asdf: %s" % MongoHelper.count())
         print("---------- ML Starting Scope: %s ----------" % self.check_scope)
 
         plk = 'scope.pkl' if self.check_scope else 'webshop.pkl'
@@ -25,10 +24,9 @@ class ML:
         else:
             clf = self.build_classifier()
 
-        nr_of_items = MongoHelper.count()
-        print("Nr of items: %s" % nr_of_items)
-        for id in range(1, nr_of_items):
-            site = MongoHelper.getResultByIndex(id)
+        print("Nr of items: %s" % MongoHelper.count())
+        for id in MongoHelper.getAllIds():
+            site = MongoHelper.getResultById(id)
             url = site['url']
             content = site['content']
 
@@ -39,13 +37,14 @@ class ML:
             list = MLHelper.divide_one('PageCount', result.csv_format())
             data = np.reshape(list, (1, -1))
 
-            predicted = np.asscalar(clf.predict(data)[0])
+            predicted = bool(np.asscalar(clf.predict(data)[0]))
+
             print("%s predicted: %s" % (url, predicted))
 
             if self.check_scope:
                 site['webshop'] = predicted
             else:
-                site['inscope'] = predicted
+                site['scope'] = predicted
 
             MongoHelper.updateInfo(site)
 
@@ -54,17 +53,23 @@ class ML:
 
     def end(self):
         print("---------- ML Ending Scope: %s ----------" % self.check_scope)
-        from list.Listing import Listing
 
-        if not self.check_scope:
+        if self.check_scope:
+            from Decider import Decider
+
+            decider = Decider(True)
+            decider.start()
+        else:
+            from list.Listing import Listing
+
             listing = Listing(False)
             listing.start()
 
     def build_classifier(self):
         if self.check_scope:
-            data = MLHelper.get_data()
+            data = MLHelper.get_scope_data()
         else:
-            data = MLHelper.get_data()
+            data = MLHelper.get_webshop_data()
 
         X_train, X_test, y_train, y_test = SetsHelper.create_sets(data)
 
@@ -72,7 +77,3 @@ class ML:
         clf.fit(X_train, y_train)
 
         return clf
-
-
-ml = ML(False)
-ml.start()

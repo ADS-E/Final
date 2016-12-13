@@ -2,28 +2,38 @@ import MongoHelper
 
 
 class Decider:
-    def __init__(self, decide_scope):
-        self.decide_scope = decide_scope
+    def __init__(self, check_scope):
+        self.check_scope = check_scope
 
     def start(self):
-        for index in range(0, MongoHelper.getAvailableId() - 1):
-            site = MongoHelper.getResultByIndex(index)
-            value = False
-            if self.decide_scope:
-                site['scope'] = self.decide_scope(site)
-                value = site['scope']
-            else:
-                site['webshop'] = self.decide_webshop(site)
-                value = site['scope']
+        print("---------- Decider Starting Scope: %s ----------" % self.check_scope)
 
+        for id in MongoHelper.getAllIds():
+            site = MongoHelper.getResultById(id)
+
+            if self.check_scope:
+                value = self.decide_scope(site)
+                site['scope'] = value
+            else:
+                value = self.decide_webshop(site)
+                site['webshop'] = value
+
+            print("Decided: %s is: %s" % (site['url'], value))
             if value is True:
                 MongoHelper.updateInfo(site)
             else:
                 MongoHelper.removeByIndex(site["id"])
 
+        self.end()
 
-    # def end(self):
+    def end(self):
+        print("---------- Decider Ending Scope: %s ----------" % self.check_scope)
 
+        if not self.check_scope:
+            from maps.Maps import Maps
+
+            maps = Maps()
+            maps.start()
 
     def decide_scope(self, site):
         if site is not None:
@@ -42,7 +52,6 @@ class Decider:
     def decide_webshop(self, site):
         if site is not None:
             list = site['list']
-            maps = site['maps']
             ml = site['ml']
 
             if list is True:

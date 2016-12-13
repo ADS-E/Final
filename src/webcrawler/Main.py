@@ -4,7 +4,7 @@ from maps import Maps
 
 def start():
     for index in range(0,MongoHelper.getAvailableId()-1) :
-        site = MongoHelper.getResultByIndex(index)
+        site = MongoHelper.getResultById(index)
         url = site["Url"]
         content = site["Content"]
         result = webcrawler.UrlResult(url)

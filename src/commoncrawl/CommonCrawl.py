@@ -1,3 +1,6 @@
+import lxml.html
+from lxml import etree
+
 import requests
 import json
 import io
@@ -21,8 +24,14 @@ class CommonCrawl:
         record_list = self.search_domain()
         link_list = []
 
+        amount = 0;
         for link in record_list:
-            for x in range(0, 3):
+            if amount == 10:
+                break
+
+            amount += 1
+
+            try:
                 html_content = download_page(link, self.index_list[0])
                 year = int(self.index_list[0][:4])
 
@@ -30,8 +39,8 @@ class CommonCrawl:
                 # print(html_content)
 
                 print("[*] Retrieved %d bytes for %s" % (len(html_content), link))
-
-            break
+            except Exception as e:
+                print("Url could not be crawled")
 
         print("[*] Total external links discovered: %d" % len(link_list))
 
@@ -63,7 +72,7 @@ class CommonCrawl:
             response = requests.get(cc_url)
 
             if response.status_code == 200:
-                records = response.content.decode('utf-8').splitlines()
+                records = response.content.decode('ISO-8859-1').splitlines()
 
                 for record in records:
                     rec = json.loads(record)
@@ -103,9 +112,12 @@ def download_page(url, index):
     response = ""
 
     if len(data):
-        warc, header, response = data.decode().split('\r\n\r\n', 2)
+        warc, header, response = data.decode('latin-1').split('\r\n\r\n', 2)
 
-    return response
+    document = lxml.html.document_fromstring(response)
+    content = "\n".join(etree.XPath("//text()")(document))
+
+    return content
 
 
 def get_base_url(record):
@@ -127,7 +139,7 @@ def get_record(url, index):
     response = requests.get(cc_url)
 
     if response.status_code == 200:
-        records = response.content.decode('utf-8').splitlines()
+        records = response.content.decode('ISO-8859-1').splitlines()
         record = records[0]
         return json.loads(record)
 

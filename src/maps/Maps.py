@@ -15,16 +15,19 @@ class Maps:
     def start(self):
         print("---------- Maps Starting ----------")
 
-        for index in range(0, MongoHelper.getAvailableId() - 1):
-            site = MongoHelper.getResultByIndex(index)
+        for id in MongoHelper.getAllIds():
+            site = MongoHelper.getResultById(id)
             if site is not None:
                 results = self.scan_url(site["url"])
                 inscope = self.determine_scope(results)
                 results = [self.url_address] + [inscope] + results
                 self.allresults[site["url"]] = results
                 self.url_address = ""
+
+                printable = "Empty" if inscope == -1 else bool(inscope)
+                print("Maps: %s is: %s" % (site['url'], printable))
+
                 site["maps"] = inscope
-                print(site["maps"])
                 MongoHelper.updateInfo(site)
         self.end()
 

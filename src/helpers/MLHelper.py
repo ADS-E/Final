@@ -1,13 +1,17 @@
 import pandas as pd
 
 
-def get_raw_data():
-    scope = pd.read_csv("../ml/csv/webshops.csv", delimiter=';')
-    no_scope = pd.read_csv("../ml/csv/nonwebshops.csv", delimiter=';')
+def get_raw_data(check_scope):
+    if check_scope:
+        positive = pd.read_csv("../ml/csv/scope.csv", delimiter=';')
+        negative = pd.read_csv("../ml/csv/noscope.csv", delimiter=';')
+    else:
+        positive = pd.read_csv("../ml/csv/webshops.csv", delimiter=';')
+        negative = pd.read_csv("../ml/csv/nonwebshops.csv", delimiter=';')
 
-    scope_length = len(scope)
+    scope_length = len(positive)
 
-    data = pd.concat([scope, no_scope], ignore_index=True)
+    data = pd.concat([positive, negative], ignore_index=True)
     data['Label'] = 0
 
     for index, row in data.iterrows():
@@ -15,9 +19,17 @@ def get_raw_data():
         data.set_value(index, 'Label', label)
 
     # data = data.iloc[np.random.permutation(len(data))]
-    #print(data)
+    # print(data)
 
     return data
+
+
+def get_scope_data():
+    return get_raw_data(True)
+
+
+def get_webshop_data():
+    return get_raw_data(False)
 
 
 def get_data():
@@ -62,11 +74,11 @@ def divide_one(value, list):
     del list[-1]
     del list[0]
 
-    for ele, i in enumerate(list):
-        if value is 'PageCount':
-            list[i] = ele / page_count
-        elif value is 'WordCount':
-            list[i] = ele / word_count
+    # for ele, i in enumerate(list):
+    #    if value is 'PageCount':
+    #        list[i] = ele / page_count
+    #    elif value is 'WordCount':
+    #        list[i] = ele / word_count
 
     return list
 
