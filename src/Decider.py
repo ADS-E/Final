@@ -8,13 +8,19 @@ class Decider:
     def start(self):
         for index in range(0, MongoHelper.getAvailableId() - 1):
             site = MongoHelper.getResultByIndex(index)
-
+            value = False
             if self.decide_scope:
                 site['scope'] = self.decide_scope(site)
+                value = site['scope']
             else:
                 site['webshop'] = self.decide_webshop(site)
+                value = site['scope']
 
-            MongoHelper.updateInfo(site)
+            if value is True:
+                MongoHelper.updateInfo(site)
+            else:
+                MongoHelper.removeByIndex(site["id"])
+
 
     # def end(self):
 
