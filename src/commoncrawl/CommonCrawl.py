@@ -17,6 +17,8 @@ class CommonCrawl:
         self.index_list = ["2015-27"]
 
     def start(self):
+        print("---------- CommonCrawl Starting ----------")
+
         record_list = self.search_domain()
         link_list = []
 
@@ -35,6 +37,8 @@ class CommonCrawl:
         self.end()
 
     def end(self):
+        print("---------- CommonCrawl Ending ----------")
+
         ml = ML(False)
         ml.start()
 
@@ -139,3 +143,7 @@ def get_response(record):
     resp = requests.get(prefix + record['filename'], headers={'Range': 'bytes={}-{}'.format(offset, offset_end)})
 
     return resp
+
+
+cc = CommonCrawl()
+cc.start()

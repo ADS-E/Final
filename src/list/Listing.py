@@ -1,15 +1,15 @@
 import MongoHelper
 from list import Specialized
 from list.Crawler import Crawler
-from maps.Maps import Maps
-from ml.ML import ML
 
 
-class List:
+class Listing:
     def __init__(self, check_scope):
         self.check_scope = check_scope
 
     def start(self):
+        print("---------- Listing Starting Scope: %s ----------" % self.check_scope)
+
         for index in range(0, MongoHelper.getAvailableId() - 1):
             site = MongoHelper.getResultByIndex(index)
 
@@ -33,6 +33,11 @@ class List:
         self.end()
 
     def end(self):
+        print("---------- Listing Starting Scope: %s ----------" % self.check_scope)
+
+        from ml.ML import ML
+        from maps.Maps import Maps
+
         if self.check_scope:
             ml = ML(True)
             ml.start()

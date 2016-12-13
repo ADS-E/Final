@@ -3,7 +3,7 @@ from sklearn.naive_bayes import MultinomialNB
 
 import MongoHelper
 from helpers import MLHelper
-from list.List import List
+from list.Listing import Listing
 from ml import SetsHelper
 from webcrawler.Spider import Spider
 
@@ -13,6 +13,8 @@ class ML:
         self.check_scope = check_scope
 
     def start(self):
+        print("---------- ML Starting Scope: %s ----------" % self.check_scope)
+
         plk = 'scope.pkl' if self.check_scope else 'webshop.pkl'
         clf = joblib.load(plk)
 
@@ -41,9 +43,11 @@ class ML:
             self.end()
 
     def end(self):
+        print("---------- ML Ending Scope: %s ----------" % self.check_scope)
+
         if not self.check_scope:
-            list = List(False)
-            list.start()
+            listing = Listing(False)
+            listing.start()
 
     def build_classifier(self):
         if self.check_scope:

@@ -1,13 +1,9 @@
 import googlemaps
 import pandas as pd
 import re
-import csv
 import MongoHelper
-from list.List import List
 
 from googlemaps import places
-
-from list.List import List
 
 
 class Maps:
@@ -17,6 +13,8 @@ class Maps:
         self.url_address = ""
 
     def start(self):
+        print("---------- Maps Starting ----------")
+
         for index in range(0, MongoHelper.getAvailableId() - 1):
             site = MongoHelper.getResultByIndex(index)
             if site is not None:
@@ -26,13 +24,15 @@ class Maps:
                 self.allresults[site["URL"]] = results
                 url_address = ""
                 site["maps"] = inscope
-                MongoHelper.updateInfo(site["id"],site)
+                MongoHelper.updateInfo(site["id"], site)
 
     def end(self):
-        List.start()
+        print("---------- Maps Starting ----------")
 
-        list = List(True)
-        list.start()
+        from list.Listing import Listing
+
+        listing = Listing(True)
+        listing.start()
 
     def get_urls(self, file):
         data = pd.read_csv(file, engine="python")
