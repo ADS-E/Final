@@ -2,12 +2,12 @@ import requests
 import json
 import io
 import gzip
-from urllib.parse import urlparse
-
 import sys
 import imp
-
 import MongoHelper
+
+from urllib.parse import urlparse
+from ml.ML import ML
 
 
 class CommonCrawl:
@@ -17,6 +17,8 @@ class CommonCrawl:
         self.index_list = ["2015-27"]
 
     def start(self):
+        print("---------- CommonCrawl Starting ----------")
+
         record_list = self.search_domain()
         link_list = []
 
@@ -24,7 +26,7 @@ class CommonCrawl:
             html_content = download_page(link, self.index_list[0])
             year = int(self.index_list[0][:4])
 
-            MongoHelper.insertURLInfo2(link, html_content, year)
+            MongoHelper.insertURLInfo(link, html_content, year)
             # print(html_content)
 
             print("[*] Retrieved %d bytes for %s" % (len(html_content), link))
@@ -32,8 +34,13 @@ class CommonCrawl:
 
         print("[*] Total external links discovered: %d" % len(link_list))
 
-        # def end():
-        # ML.start()
+        self.end()
+
+    def end(self):
+        print("---------- CommonCrawl Ending ----------")
+
+        ml = ML(False)
+        ml.start()
 
     #
     # Searches the Common Crawl Index for a domain.
@@ -136,3 +143,7 @@ def get_response(record):
     resp = requests.get(prefix + record['filename'], headers={'Range': 'bytes={}-{}'.format(offset, offset_end)})
 
     return resp
+
+
+cc = CommonCrawl()
+cc.start()

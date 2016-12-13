@@ -34,8 +34,8 @@ def getAvailableId():
     else:
         return 1
 
-def removeByIndex(index):
-    posts.remove({"id": index})
 
 def getResultByURL(url):
     return posts.find_one({"URL": url})
+
+print(posts.find().count())

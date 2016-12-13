@@ -5,16 +5,16 @@ import lxml.html
 from lxml import etree
 
 from helpers import CsvHelper
+from webcrawler.UrlResult import UrlResult
 
 
-class Spider(threading.Thread):
+class Spider:
     """"Class used for scanning urls on containing certain words."""
 
-    def __init__(self, url, content, result):
-        threading.Thread.__init__(self)
+    def __init__(self, url, content):
         self.url = url
         self.content = content
-        self.result = result
+        self.result = UrlResult(url)
         self.words = CsvHelper.read_file('words.csv')
 
     def process(self):
@@ -34,5 +34,3 @@ class Spider(threading.Thread):
                 self.result.put(word, count)
         except Exception as e:
             print(e)
-
-

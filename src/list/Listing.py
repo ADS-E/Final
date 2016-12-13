@@ -3,11 +3,13 @@ from list import Specialized
 from list.Crawler import Crawler
 
 
-class List:
+class Listing:
     def __init__(self, check_scope):
         self.check_scope = check_scope
 
     def start(self):
+        print("---------- Listing Starting Scope: %s ----------" % self.check_scope)
+
         for index in range(0, MongoHelper.getAvailableId() - 1):
             site = MongoHelper.getResultByIndex(index)
 
@@ -28,9 +30,21 @@ class List:
 
                 MongoHelper.updateInfo(site)
 
+        self.end()
 
-# def end():
-# ml
+    def end(self):
+        print("---------- Listing Starting Scope: %s ----------" % self.check_scope)
+
+        from ml.ML import ML
+        from maps.Maps import Maps
+
+        if self.check_scope:
+            ml = ML(True)
+            ml.start()
+        else:
+            maps = Maps()
+            maps.start()
+
 
 def take_sitename(url):
     splitter = url.split('.')[0]
