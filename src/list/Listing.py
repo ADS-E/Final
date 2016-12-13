@@ -14,7 +14,7 @@ class Listing:
             site = MongoHelper.getResultByIndex(index)
 
             if site is not None:
-                url = site["Url"]
+                url = site["url"]
                 sitename = take_sitename(url)
                 csv_file = 'csv/scope_certain.csv' if self.check_scope else 'csv/webshop_certain.csv'
 

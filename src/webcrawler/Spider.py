@@ -15,7 +15,7 @@ class Spider:
         self.url = url
         self.content = content
         self.result = UrlResult(url)
-        self.words = CsvHelper.read_file('words.csv')
+        self.words = CsvHelper.read_file('../webcrawler/words.csv')
 
     def process(self):
         """Count for every word that needs to be checked the amount of times it's found in the page content.
@@ -32,5 +32,7 @@ class Spider:
             for word in self.words:
                 count = len(re.findall(re.compile(word, re.IGNORECASE), content))
                 self.result.put(word, count)
+
+            return self.result
         except Exception as e:
             print(e)

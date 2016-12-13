@@ -18,16 +18,18 @@ class Maps:
         for index in range(0, MongoHelper.getAvailableId() - 1):
             site = MongoHelper.getResultByIndex(index)
             if site is not None:
-                results = self.scan_url(site["URL"])
+                results = self.scan_url(site["url"])
                 inscope = self.determine_scope(results)
-                results = [url_address] + [inscope] + results
-                self.allresults[site["URL"]] = results
-                url_address = ""
+                results = [self.url_address] + [inscope] + results
+                self.allresults[site["url"]] = results
+                self.url_address = ""
                 site["maps"] = inscope
-                MongoHelper.updateInfo(site["id"], site)
+                print(site["maps"])
+                MongoHelper.updateInfo(site)
+        self.end()
 
     def end(self):
-        print("---------- Maps Starting ----------")
+        print("---------- Maps Ending ----------")
 
         from list.Listing import Listing
 
@@ -77,8 +79,7 @@ class Maps:
     def get_types(self, url, dict):
         address = self.check_details(url, dict["place_id"])
         if address is not None:
-            global url_address
-            url_address = address
+            self.url_address = address
             try:
                 result = dict["types"]
             except KeyError:
@@ -107,6 +108,6 @@ class Maps:
                         return 0
                     elif record == "car_rental" or record == "lodging":
                         return 0
-                if "point_of_interest" in results or "establishment" in results:
+                if "point_of_interest" in result or "establishment" in result:
                     return 1
         return -1
