@@ -52,6 +52,7 @@ class Listing:
             decider = Decider(False)
             decider.start()
 
-""""Get the stie name from the URL. So www.mediamarkt.nl becomes mediamarkt"""
+""""Get the stie name from the URL. So www.mediamarkt.nl becomes mediamarkt.nl"""
 def take_sitename(url):
-    return url.split('.')[1]
+    splitter = url.split('.')
+    return splitter[1] + "." + splitter[2]
