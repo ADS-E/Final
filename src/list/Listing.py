@@ -54,5 +54,12 @@ class Listing:
 
 """"Get the stie name from the URL. So www.mediamarkt.nl becomes mediamarkt.nl"""
 def take_sitename(url):
-    splitter = url.split('.')
-    return splitter[1] + "." + splitter[2]
+    s = url.split('.')
+    x = s[len(s) - 2] + "." + s[len(s) - 1]
+
+    if 'http://' in x:
+        x = x[7:]
+    if 'https://' in x:
+        x = x[8:]
+
+    return x
