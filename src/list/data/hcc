@@ -1,0 +1,469 @@
+
+<!DOCTYPE html>
+<html class="html no-js" lang="nl-nl" dir="ltr">
+<head>
+		<base href="https://www.hcc.nl/" />
+	<meta http-equiv="content-type" content="text/html; charset=utf8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta name="mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<meta name="apple-mobile-web-app-title" content="HCC" />
+	<meta name="generator" content="HCC" />
+	<title>HCC - Home</title>
+	<link href="/?format=feed&amp;type=rss" rel="alternate" type="application/rss+xml" title="RSS 2.0" />
+	<link href="/?format=feed&amp;type=atom" rel="alternate" type="application/atom+xml" title="Atom 1.0" />
+	<link href="/templates/hcc/images/favicon.ico" rel="shortcut icon" type="image/ico" />
+	<link href="/templates/hcc/images/favicon.png" rel="shortcut icon" type="image/png" />
+	<link href="/templates/hcc/images/xtouch-icon.png" rel="apple-touch-icon" type="image/png" />
+	<link href="/plugins/system/jcemediabox/css/jcemediabox.css?3ab6d4490e67378d035cce4c84ffa080" rel="stylesheet" type="text/css" />
+	<link href="/plugins/system/jcemediabox/themes/standard/css/style.css?7361405241320e69bc1bfb093eb0a2f7" rel="stylesheet" type="text/css" />
+	<link href="/templates/hcc/css/style.css?q=1562" rel="stylesheet" type="text/css" />
+	<link href="/components/com_jevents/assets/css/jevcustom.css?3.4.25" rel="stylesheet" type="text/css" />
+	<script src="/media/jui/js/jquery.min.js" type="text/javascript"></script>
+	<script src="/media/jui/js/jquery-noconflict.js" type="text/javascript"></script>
+	<script src="/media/jui/js/jquery-migrate.min.js" type="text/javascript"></script>
+	<script src="/plugins/system/jcemediabox/js/jcemediabox.js?2ee2100a9127451a41de5a4c2c62e127" type="text/javascript"></script>
+	<script src="/media/system/js/core.js" type="text/javascript"></script>
+	<script src="/templates/hcc/js/modernizr.js" type="text/javascript"></script>
+	<script src="/templates/hcc/js/scripts.js" type="text/javascript"></script>
+	<script type="text/javascript">
+JCEMediaBox.init({popup:{width:"",height:"",legacy:0,lightbox:0,shadowbox:0,resize:1,icons:1,overlay:1,overlayopacity:0.8,overlaycolor:"#000000",fadespeed:500,scalespeed:500,hideobjects:0,scrolling:"fixed",close:2,labels:{'close':'Sluiten','next':'Volgende','previous':'Vorige','cancel':'Annuleren','numbers':'{$current} van {$total}'},cookie_expiry:"",google_viewer:0},tooltip:{className:"tooltip",opacity:0.8,speed:150,position:"br",offsets:{x: 16, y: 16}},base:"/",imgpath:"plugins/system/jcemediabox/img",theme:"standard",themecustom:"",themepath:"plugins/system/jcemediabox/themes",mediafallback:0,mediaselector:"audio,video"});
+<!-- Local Storage for font -->
+  !function () {
+    function addFont(font) {
+      var style = document.createElement('style');
+      style.rel = 'stylesheet';
+      document.head.appendChild(style);
+      style.textContent = font
+    }
+    var font = 'HCC-fonts';
+    try {
+      if (localStorage[font])addFont(localStorage[font]); else {
+        var request = new XMLHttpRequest;
+        request.open('GET', 'https://www.hcc.nl/templates/hcc/css/font.css', !0);
+        request.onload = function () {
+          request.status >= 200 && request.status < 400 && (localStorage[font] = request.responseText, addFont(request.responseText))
+        }, request.send()
+      }
+    } catch (d) {
+    }
+  }();
+JCEMediaBox.init({popup:{width:"",height:"",legacy:0,lightbox:0,shadowbox:0,resize:1,icons:1,overlay:1,overlayopacity:0.8,overlaycolor:"#000000",fadespeed:500,scalespeed:500,hideobjects:0,scrolling:"fixed",close:2,labels:{'close':'Sluiten','next':'Volgende','previous':'Vorige','cancel':'Annuleren','numbers':'{$current} van {$total}'},cookie_expiry:"",google_viewer:0},tooltip:{className:"tooltip",opacity:0.8,speed:150,position:"br",offsets:{x: 16, y: 16}},base:"/",imgpath:"plugins/system/jcemediabox/img",theme:"standard",themecustom:"",themepath:"plugins/system/jcemediabox/themes",mediafallback:0,mediaselector:"audio,video"});
+<!-- Local Storage for font -->
+  !function () {
+    function addFont(font) {
+      var style = document.createElement('style');
+      style.rel = 'stylesheet';
+      document.head.appendChild(style);
+      style.textContent = font
+    }
+    var font = 'HCC-fonts';
+    try {
+      if (localStorage[font])addFont(localStorage[font]); else {
+        var request = new XMLHttpRequest;
+        request.open('GET', 'https://www.hcc.nl/templates/hcc/css/font.css', !0);
+        request.onload = function () {
+          request.status >= 200 && request.status < 400 && (localStorage[font] = request.responseText, addFont(request.responseText))
+        }, request.send()
+      }
+    } catch (d) {
+    }
+  }();
+function fetchMoreLatestEvents(modid, direction)
+{
+        jQuery.ajax({
+                    type : 'POST',
+                    dataType : 'json',
+                    url : "https://www.hcc.nl/index.php?option=com_jevents&ttoption=com_jevents&typeaheadtask=gwejson&file=fetchlatestevents&path=module&folder=mod_jevents_latest&token=1d7ae642eafcbcd5eb83be1e7c8cfd38",
+                    data : {'json':JSON.stringify({'modid':modid, 'direction':direction})},
+                    contentType: "application/x-www-form-urlencoded; charset=utf-8",
+                    scriptCharset: "utf-8"
+            })
+                .done(function( data ){
+                    jQuery("#mod_events_latest_"+modid+"_data").replaceWith(data.html);
+                    try {
+                        document.getElementById("mod_events_latest_"+modid+"_data").parentNode.scrollIntoView({block: "start", behavior: "smooth"});
+                    }
+                    catch (e) {
+                    }
+                })
+                .fail(function(x) {
+        alert('fail '+x);
+                });
+}
+	</script>
+
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-TGW495');</script>
+<!-- End Google Tag Manager -->
+
+    <!-- template overrides voor joris -->
+    <link href="/templates/hcc/css/style_overrides_hcc.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body class="option-com-content view-featured page-101  path-home home-1 no-js">
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TGW495"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<script type="text/javascript">function hasClass(e, t) {
+		return e.className.match(new RegExp("(\\s|^)" + t + "(\\s|$)"))
+	}
+	var el = document.body;
+	var cl = "no-js";
+	if (hasClass(el, cl)) {
+		var reg = new RegExp("(\\s|^)" + cl + "(\\s|$)");
+		el.className = el.className.replace(reg, " js-enabled")
+	}</script>
+
+<div class="site">
+	<div class="site__header">
+		<div class="container">
+			<div class="site-header__brand">
+				<a href="https://www.hcc.nl/"
+				   class="site-header__home">
+					<img data-src="/images/logos/hcc/logo-hcc.svg"
+					     data-fallback="/images/logos/hcc/hcc-wit_569x213.png"
+					     alt="HCC"
+					     class="inject-me site-header__logo"/>
+				</a>
+			</div>
+							<div class="site-header__tools">
+
+
+<div class="custom block-tools"  >
+	<p><a href="/contact" class="block-tools__anchor block-tools__anchor--chat"><span class="block-tools__text">contact</span></a> <a href="https://webmail.hccnet.nl/" target="new" class="block-tools__anchor block-tools__anchor--mail"><span class="block-tools__text">webmail</span></a> <a href="/login" class="block-tools__anchor block-tools__anchor--login"><span class="block-tools__text">inloggen</span></a> <a href="/zoeken" class="block-tools__anchor block-tools__anchor--search"><span class="block-tools__icon">zoeken</span></a></p></div>
+
+				</div>
+
+							<nav class="site-header__navigation navigation_container" role="navigation" aria-label="Hoofdmenu">
+
+
+
+	<style>
+  .onderstreep a{
+    text-decoration: underline;
+    font-weight: 600;
+  }
+</style><ul role="menubar">
+	<li class="item-655  onderstreep" role="presentation">		<a role="menuitem" href="/word-lid" >Word lid</a></li><li class="item-657 parent" role="presentation">		<a role="menuitem" aria-haspopup="true" href="/vereniging" >Vereniging</a><ul role="menu"><li class="item-659" role="presentation"><a role="menuitem" href="/agenda" >Agenda</a></li><li class="item-835" role="presentation">		<a role="menuitem" href="/vereniging/ledenvoordeel" >Ledenvoordeel</a></li><li class="item-661" role="presentation">		<a role="menuitem" href="/vereniging/lidmaatschap" >Lidmaatschap</a></li><li class="item-663" role="presentation">		<a role="menuitem" href="/vereniging/interessegroepen" >Interessegroepen</a></li><li class="item-665" role="presentation">		<a role="menuitem" href="/vereniging/regio-s" >Regio's</a></li><li class="item-839" role="presentation">		<a role="menuitem" href="/vereniging/hulp" >Hulp</a></li><li class="item-905" role="presentation"><a role="menuitem" href="https://kadernet.hcc.nl/" >Kadernet</a></li></ul></li><li class="item-667 parent" role="presentation">		<a role="menuitem" aria-haspopup="true" href="/kennis" >Kennis</a><ul role="menu"><li class="item-669" role="presentation">		<a role="menuitem" href="/kennis/nieuws" >Nieuws</a></li><li class="item-847" role="presentation">		<a role="menuitem" href="/kennis/thema" >Thema's</a></li><li class="item-671" role="presentation">		<a role="menuitem" href="/kennis/vraag-van-de-week" >Vraag van de week</a></li><li class="item-921" role="presentation"><a role="menuitem" href="https://vraagbaak.hcc.nl/"
+		target="_blank" >Vraagbaak</a></li><li class="item-919" role="presentation"><a role="menuitem" href="http://www.hccforums.nl"
+		target="_blank" >Forums</a></li></ul></li><li class="item-673 rm-theme parent" role="presentation">		<a role="menuitem" aria-haspopup="true" href="/pc-active" >PC-Active</a><ul role="menu"><li class="item-675" role="presentation">		<a role="menuitem" href="/pc-active/pc-active-algemene-informatie" >PC-Active - algemene informatie</a></li><li class="item-859" role="presentation">		<a role="menuitem" href="/pc-active/pca-digitaal" >Digitale versie PC-Active</a></li><li class="item-861" role="presentation">		<a role="menuitem" href="/pc-active/huidige-editie" >Huidige editie</a></li></ul></li></ul>
+
+				</nav>
+					</div>
+	</div>
+
+
+
+			<div class="site__header-home">
+			<div class="container">
+				<div class="site__header-home-wrapper">
+					<div class="custom block-slider">
+	<div class="swiper-container">
+		<div class="swiper-wrapper">
+											<figure class="swiper-slide" style="background-image: url('/images/2016/12/c74_transmission-tower-1017149_960_720.jpg')">
+					<a href="/kennis/1079-dekking-voor-snel-mobiel-internet-overal-verplicht" itemprop="url" class="swiper-slide--anchor-blank">Dekking voor snel mobiel internet overal verplicht </a>					<figcaption>
+						<a href="/kennis/1079-dekking-voor-snel-mobiel-internet-overal-verplicht" itemprop="url" class="swiper-slide--anchor"><strong>Dekking voor snel mobiel internet overal verplicht </strong><br/><span id="verberg">De overheid gaat in de toekomst telecomaanbieders verplichten in alle bewoonde gebieden in...</a>					</figcaption>
+				</figure>
+											<figure class="swiper-slide" style="background-image: url('/images/2016/12/a33_blue-light-police.jpg')">
+					<a href="/kennis/1077-politie-start-opsporing-verdachten-met-gezichtsherkenning" itemprop="url" class="swiper-slide--anchor-blank">Politie start opsporing verdachten met gezichtsherkenning</a>					<figcaption>
+						<a href="/kennis/1077-politie-start-opsporing-verdachten-met-gezichtsherkenning" itemprop="url" class="swiper-slide--anchor"><strong>Politie start opsporing verdachten met gezichtsherkenning</strong><br/><span id="verberg">De politie begint vandaag met het opsporen van verdachten door gezichtsherkenning. Gezichten van...</a>					</figcaption>
+				</figure>
+											<figure class="swiper-slide" style="background-image: url('/images/2016/12/aaf_2000px-Yahoo_Logo.svg.png')">
+					<a href="/kennis/1073-miljard-yahoo-accounts-gehackt" itemprop="url" class="swiper-slide--anchor-blank">Miljard Yahoo-accounts gehackt</a>					<figcaption>
+						<a href="/kennis/1073-miljard-yahoo-accounts-gehackt" itemprop="url" class="swiper-slide--anchor"><strong>Miljard Yahoo-accounts gehackt</strong><br/><span id="verberg">Hackers hebben in augustus 2013 ingebroken bij techbedrijf Yahoo en daarbij informatie buitgemaakt van meer...</a>					</figcaption>
+				</figure>
+											<figure class="swiper-slide" style="background-image: url('/images/2016/12/dc0_Adobe_Flash_Player_v10_icon.png')">
+					<a href="/kennis/1071-microsoft-edge-gaat-flash-standaard-blokkeren" itemprop="url" class="swiper-slide--anchor-blank">Microsoft Edge gaat Flash standaard blokkeren</a>					<figcaption>
+						<a href="/kennis/1071-microsoft-edge-gaat-flash-standaard-blokkeren" itemprop="url" class="swiper-slide--anchor"><strong>Microsoft Edge gaat Flash standaard blokkeren</strong><br/><span id="verberg">De Microsoft Edge-browser zal vanaf begin 2017 Flash-content standaard gaan blokkeren. Dat gebeurt vanaf...</a>					</figcaption>
+				</figure>
+											<figure class="swiper-slide" style="background-image: url('/images/2016/12/a03_013058_StudioZilt_Frends_0003.jpg')">
+					<a href="/kennis/1069-hoe-kies-je-de-juiste-hoofdtelefoon-voor-jou" itemprop="url" class="swiper-slide--anchor-blank">Hoe kies je de juiste hoofdtelefoon voor jou</a>					<figcaption>
+						<a href="/kennis/1069-hoe-kies-je-de-juiste-hoofdtelefoon-voor-jou" itemprop="url" class="swiper-slide--anchor"><strong>Hoe kies je de juiste hoofdtelefoon voor jou</strong><br/><span id="verberg">Met de komst van MP3-spelers en later smartphones, heeft het gebruik van hoofdtelefoons een grote...</a>					</figcaption>
+				</figure>
+											<figure class="swiper-slide" style="background-image: url('/images/2016/12/787_databescherming.png')">
+					<a href="/kennis/1067-de-belangrijkste-bezwaren-tegen-de-nieuwe-hackwet" itemprop="url" class="swiper-slide--anchor-blank">De belangrijkste bezwaren tegen de nieuwe hackwet</a>					<figcaption>
+						<a href="/kennis/1067-de-belangrijkste-bezwaren-tegen-de-nieuwe-hackwet" itemprop="url" class="swiper-slide--anchor"><strong>De belangrijkste bezwaren tegen de nieuwe hackwet</strong><br/><span id="verberg">Dinsdag debatteerde de Tweede Kamer over de <a href="/kennis/909-meer-en-beter-toezicht-nodig-op-hackwet">nieuwe hackwet</a> die de politie verdergaande...</a>					</figcaption>
+				</figure>
+											<figure class="swiper-slide" style="background-image: url('/images/2016/12/1ea_wifi.jpg')">
+					<a href="/kennis/1061-met-vodafone-nu-bellen-via-wifi-op-iphones" itemprop="url" class="swiper-slide--anchor-blank">Met Vodafone nu bellen via wifi op iPhones</a>					<figcaption>
+						<a href="/kennis/1061-met-vodafone-nu-bellen-via-wifi-op-iphones" itemprop="url" class="swiper-slide--anchor"><strong>Met Vodafone nu bellen via wifi op iPhones</strong><br/><span id="verberg">Apple heeft de functie 'bellen via wifi' live gezet voor Vodafone Nederland. Daardoor zijn...</a>					</figcaption>
+				</figure>
+					</div>
+		<div class="swiper-pagination"></div>
+	</div>
+
+	<script>
+		var swiper = new Swiper('.swiper-container', {
+			pagination: '.swiper-pagination',
+			paginationClickable: true,
+			paginationBulletRender: function (index, className) {
+				return '<span class="' + className + '">' + (index + 1) + '</span>';
+			},
+			loop: true,
+			autoplay: 4000,
+            speed: 3000,
+			autoplayDisableOnInteraction: false
+		});
+	</script>
+</div>
+
+					<div class="block-cover">
+
+
+<div class="custom"  >
+	<div class="toon">
+	<h2>Site van HCC compleet vernieuwd!</h2>
+	<p><a href="/algemeen/971-site-van-hcc-compleet-vernieuwd">Klik hier voor meer informatie &gt;&gt;</a></p>
+</div>
+<div id="verberg"><a href="/algemeen/971-site-van-hcc-compleet-vernieuwd"><img src="/images/thema_afbeeldingen/nieuw.png" alt="nieuwe site HCC" width="100%" height="auto" style="margin: 5px 0px;" /></a></div>
+  <div id="verberg" style="text-align: center; font-weight: bold; color: #6eaf3b;"><a href="/algemeen/971-site-van-hcc-compleet-vernieuwd">Site van HCC compleet vernieuwd!</a></div></div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+	<div
+		class="site-vraag"  >
+		<div class="container">
+			<strong> vraag van de week:</strong> "<a href="/kennis/vraag-van-de-week/1049-oplossing-internetprobleem-windows-10"
+			                                         class="anchor--reset">Hoe los ik het internetprobleem na de laatste Windows 10-update op?</a>"
+		</div>
+	</div>
+
+
+		<main class="site__content" id="content" tabindex="-1">
+		<div class="container">
+			<div class="content-wrapper">
+				<div class="content-wrapper__block">
+					<div class=" content-no-padding module"><div class="module__content">
+
+<div class="custom content-no-padding"  >
+	<div class="module__header">
+<h3><a href="/nieuws">Actueel</a></h3>
+</div></div>
+</div></div>
+					<div class="module__content" itemscope itemtype="https://schema.org/Blog">
+						<div itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+
+	<div class="blog-item media__separated media__readmore">
+					<figure class="media__figure">
+				<a href="/kennis/1077-politie-start-opsporing-verdachten-met-gezichtsherkenning" class="media__image"><img src="/images/2016/12/261_blue-light-police.jpg" alt="" "/>
+
+</a>			</figure>
+				<div class="media__body">
+			<h2 class="media__title">
+				<a href="/kennis/1077-politie-start-opsporing-verdachten-met-gezichtsherkenning" class="anchor--reset ">Politie start opsporing verdachten met gezichtsherkenning</a>			</h2>
+							<div class="media__text">
+					<p>
+						<p>De politie begint vandaag met het opsporen van verdachten door gezichtsherkenning. Gezichten van verdachten kunnen worden vergeleken met die van bekenden van de politie.</p>
+					</p>
+				</div>
+						<div class="media__action">
+				<a href="/kennis/1077-politie-start-opsporing-verdachten-met-gezichtsherkenning" class="anchor--chevron-right-circle"><span class="visually-hidden">Lees meer: Politie start opsporing verdachten met gezichtsherkenning</span></a>			</div>
+		</div>
+	</div>
+			</div>
+					<div itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+
+	<div class="blog-item media__separated media__readmore">
+					<figure class="media__figure">
+				<a href="/kennis/1073-miljard-yahoo-accounts-gehackt" class="media__image"><img src="/images/2016/12/fe3_Yahoo_250.png" alt="" "/>
+
+</a>			</figure>
+				<div class="media__body">
+			<h2 class="media__title">
+				<a href="/kennis/1073-miljard-yahoo-accounts-gehackt" class="anchor--reset ">Miljard Yahoo-accounts gehackt</a>			</h2>
+							<div class="media__text">
+					<p>
+						<p>Hackers hebben in augustus 2013 ingebroken bij techbedrijf Yahoo en daarbij informatie buitgemaakt van meer dan 1 miljard gebruikers. Het gaat om namen, e-mailadressen, telefoonnummers, geboortedata, versleutelde wachtwoorden en beveiligingsvragen met bijbehorende antwoorden.</p>
+					</p>
+				</div>
+						<div class="media__action">
+				<a href="/kennis/1073-miljard-yahoo-accounts-gehackt" class="anchor--chevron-right-circle"><span class="visually-hidden">Lees meer: Miljard Yahoo-accounts gehackt</span></a>			</div>
+		</div>
+	</div>
+			</div>
+					<div itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+
+	<div class="blog-item media__separated media__readmore">
+					<figure class="media__figure">
+				<a href="/kennis/1071-microsoft-edge-gaat-flash-standaard-blokkeren" class="media__image"><img src="/images/2016/12/cac_Adobe_Flash_Player_v10_icon.png" alt="" "/>
+
+</a>			</figure>
+				<div class="media__body">
+			<h2 class="media__title">
+				<a href="/kennis/1071-microsoft-edge-gaat-flash-standaard-blokkeren" class="anchor--reset ">Microsoft Edge gaat Flash standaard blokkeren</a>			</h2>
+							<div class="media__text">
+					<p>
+						<p>De Microsoft Edge-browser zal vanaf begin 2017 Flash-content standaard gaan blokkeren. Dat gebeurt vanaf het moment dat de Creators Update beschikbaar is voor Windows 10.</p>
+					</p>
+				</div>
+						<div class="media__action">
+				<a href="/kennis/1071-microsoft-edge-gaat-flash-standaard-blokkeren" class="anchor--chevron-right-circle"><span class="visually-hidden">Lees meer: Microsoft Edge gaat Flash standaard blokkeren</span></a>			</div>
+		</div>
+	</div>
+			</div>
+			</div>
+					<div class="block-action module"><div class="module__content">
+
+<div class="customblock-action"  >
+	<p><a href="/kennis/nieuws" class="block-action__anchor">meer</a></p></div>
+</div></div>
+				</div>
+				<div class="content-wrapper__block">
+					<div class="  content-no-padding module"><div class="module__content">
+
+<div class="custom  content-no-padding"  >
+	<div class="module__header">
+<h3><a href="/agenda">Binnenkort @ HCC</a></h3>
+</div></div>
+</div></div><div class=" module"><div class="module__content"><tr><td class="mod_events_latest_first" style="border-color:#ccc"><div class="media media__separated media__readmore"><div class="media__figure"><a href="/agenda/icalrepeat.detail/2016/12/16/439/-/inloop-voor-computervragen" class="calendar"><span class="calendar__month">december </span><span class="calendar__day">16</span></time></a></div><div class="media__body"><h2 class="media__title no-margin"><a href="/agenda/icalrepeat.detail/2016/12/16/439/-/inloop-voor-computervragen" class="anchor--reset">Inloop voor computervragen</a></h2><div class="media__text"><p class="no-margin">vrijdag  14:00<br> Urmond</p></div><div class="media__action"><a href="/agenda/icalrepeat.detail/2016/12/16/439/-/inloop-voor-computervragen" class="anchor--chevron-right-circle"><span class="visually-hidden">Lees meer: Inloop voor computervragen</span></a></div></div></div></td></tr>
+<tr><td class="mod_events_latest" style="border-color:#ccc"><div class="media media__separated media__readmore"><div class="media__figure"><a href="/agenda/icalrepeat.detail/2016/12/16/557/-/python-raspberry-pi" class="calendar"><span class="calendar__month">december </span><span class="calendar__day">16</span></time></a></div><div class="media__body"><h2 class="media__title no-margin"><a href="/agenda/icalrepeat.detail/2016/12/16/557/-/python-raspberry-pi" class="anchor--reset">Python+Raspberry Pi</a></h2><div class="media__text"><p class="no-margin">vrijdag  19:00<br> Losser</p></div><div class="media__action"><a href="/agenda/icalrepeat.detail/2016/12/16/557/-/python-raspberry-pi" class="anchor--chevron-right-circle"><span class="visually-hidden">Lees meer: Python+Raspberry Pi</span></a></div></div></div></td></tr>
+<tr><td class="mod_events_latest" style="border-color:#ccc"><div class="media media__separated media__readmore"><div class="media__figure"><a href="/agenda/icalrepeat.detail/2016/12/17/523/-/grote-vlooienmarkt-en-c-loterij" class="calendar"><span class="calendar__month">december </span><span class="calendar__day">17</span></time></a></div><div class="media__body"><h2 class="media__title no-margin"><a href="/agenda/icalrepeat.detail/2016/12/17/523/-/grote-vlooienmarkt-en-c-loterij" class="anchor--reset">Grote vlooienmarkt en C= loterij</a></h2><div class="media__text"><p class="no-margin">zaterdag  10:00<br> Maarssen</p></div><div class="media__action"><a href="/agenda/icalrepeat.detail/2016/12/17/523/-/grote-vlooienmarkt-en-c-loterij" class="anchor--chevron-right-circle"><span class="visually-hidden">Lees meer: Grote vlooienmarkt en C= loterij</span></a></div></div></div></td></tr>
+<tr><td class="mod_events_latest" style="border-color:#ccc"><div class="media media__separated media__readmore"><div class="media__figure"><a href="/agenda/icalrepeat.detail/2016/12/17/525/-/msx-in-kerstsfeer" class="calendar"><span class="calendar__month">december </span><span class="calendar__day">17</span></time></a></div><div class="media__body"><h2 class="media__title no-margin"><a href="/agenda/icalrepeat.detail/2016/12/17/525/-/msx-in-kerstsfeer" class="anchor--reset">MSX in kerstsfeer</a></h2><div class="media__text"><p class="no-margin">zaterdag  10:00<br> Maarssen</p></div><div class="media__action"><a href="/agenda/icalrepeat.detail/2016/12/17/525/-/msx-in-kerstsfeer" class="anchor--chevron-right-circle"><span class="visually-hidden">Lees meer: MSX in kerstsfeer</span></a></div></div></div></td></tr>
+<tr><td class="mod_events_latest" style="border-color:#ccc"><div class="media media__separated media__readmore"><div class="media__figure"><a href="/agenda/icalrepeat.detail/2016/12/17/617/-/bijeenkomst-hcc-flightsimulator" class="calendar"><span class="calendar__month">december </span><span class="calendar__day">17</span></time></a></div><div class="media__body"><h2 class="media__title no-margin"><a href="/agenda/icalrepeat.detail/2016/12/17/617/-/bijeenkomst-hcc-flightsimulator" class="anchor--reset">Bijeenkomst HCC!flightsimulator</a></h2><div class="media__text"><p class="no-margin">zaterdag  10:30<br> Almere Buiten</p></div><div class="media__action"><a href="/agenda/icalrepeat.detail/2016/12/17/617/-/bijeenkomst-hcc-flightsimulator" class="anchor--chevron-right-circle"><span class="visually-hidden">Lees meer: Bijeenkomst HCC!flightsimulator</span></a></div></div></div></td></tr>
+<tr><td class="mod_events_latest" style="border-color:#ccc"><div class="media media__separated media__readmore"><div class="media__figure"><a href="/agenda/icalrepeat.detail/2016/12/17/337/-/bijeenkomst-hcc-opensource" class="calendar"><span class="calendar__month">december </span><span class="calendar__day">17</span></time></a></div><div class="media__body"><h2 class="media__title no-margin"><a href="/agenda/icalrepeat.detail/2016/12/17/337/-/bijeenkomst-hcc-opensource" class="anchor--reset">Bijeenkomst hcc!opensource</a></h2><div class="media__text"><p class="no-margin">zaterdag  13:00<br> Eemnes</p></div><div class="media__action"><a href="/agenda/icalrepeat.detail/2016/12/17/337/-/bijeenkomst-hcc-opensource" class="anchor--chevron-right-circle"><span class="visually-hidden">Lees meer: Bijeenkomst hcc!opensource</span></a></div></div></div></td></tr>
+<tr><td class="mod_events_latest" style="border-color:#ccc"><div class="media media__separated media__readmore"><div class="media__figure"><a href="/agenda/icalrepeat.detail/2016/12/17/391/-/hcc-programmeren-inloop-en-plenaire-sessie" class="calendar"><span class="calendar__month">december </span><span class="calendar__day">17</span></time></a></div><div class="media__body"><h2 class="media__title no-margin"><a href="/agenda/icalrepeat.detail/2016/12/17/391/-/hcc-programmeren-inloop-en-plenaire-sessie" class="anchor--reset">HCC!programmeren inloop en plenaire sessie</a></h2><div class="media__text"><p class="no-margin">zaterdag  13:00<br> Eemnes</p></div><div class="media__action"><a href="/agenda/icalrepeat.detail/2016/12/17/391/-/hcc-programmeren-inloop-en-plenaire-sessie" class="anchor--chevron-right-circle"><span class="visually-hidden">Lees meer: HCC!programmeren inloop en plenaire sessie</span></a></div></div></div></td></tr>
+</table>
+</div></div><div class="block-action module"><div class="module__content">
+
+<div class="customblock-action"  >
+	<p><a href="/component/jevents/month.calendar/2016/12/16/-?Itemid=985" class="block-action__anchor">meer</a></p></div>
+</div></div>
+				</div>
+				<div class="content-wrapper__block">
+					<div class=" module__content-paddingtop module"><div class="module__header"><h3>Algemeen</h3></div><div class="module__content">
+
+<div class="custom module__content-paddingtop"  >
+	<div style="margin-top: -17px;">&nbsp;</div>
+<dl class="dl--separated dl--readmore"><dt>
+
+
+<h2><a href="/word-lid" style="color: #000;">Lid worden</a></h2>
+</dt><dd>Word vandaag nog lid van HCC en word wijzer in de digitale wereld.<br /><br />
+<div class="dd__action" style="margin: 0 0 20px 0;"><a href="/lid-worden" class="anchor--chevron-right-circle"><span class="visually-hidden">Lid worden</span></a></div>
+</dd><dt><br />
+<h2><a href="/vereniging/interessegroepen" style="color: #000;">Interessegroepen</a></h2>
+</dt><dd>HCC kent vele interessegroepen, vind uit welke het best bij jou past!<br /><br />
+<div class="dd__action" style="margin: 0 0 20px 0;"><a href="/vereniging/interessegroepen" class="anchor--chevron-right-circle"><span class="visually-hidden">Interessegroepen</span></a></div>
+</dd><dt><br />
+<h2><a href="/lid-worden" style="color: #000;">Volg ons op social media</a></h2>
+</dt>
+
+<div class="custom"  >
+	<style>
+.rij{
+    width: 100%;
+    margin: 0px 0px 0px 0px;
+    overflow: hidden;
+}
+
+.box{
+    width: 45%;
+    margin: 5px 0px 10px 0px;
+    padding: 0px;
+    fill-rule:evenodd;
+   clip-rule:evenodd;
+   fill:#9e9e9e;
+   -webkit-transition:all 300ms ease;
+   -moz-transition:all 300ms ease;
+   -ms-transition:all 300ms ease;
+   -o-transition:all 300ms ease;
+    transition:all 300ms ease;
+}
+
+  .facebook:hover {
+ fill:#44609D;
+}
+
+    .twitter:hover {
+ fill:#46BDEB;
+}
+
+
+.rechts{
+    float: right;
+}
+
+.links{
+    float: left;
+}
+</style>
+
+
+<div class="rij">
+  <div class="box links facebook">
+ <a href="https://www.facebook.com/HCCconnect" target="_blank" title="Facebook" style="display:block">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 449 109" enable-background="new 0 0 449 109"><path d="M285.5 45.9c-2.8 0-4.8 1.5-6.2 4.5V66c1.3 2.9 3.4 4.4 6.2 4.4 2.4 0 4.2-.8 5.2-2.5s1.6-4.3 1.6-7.9v-3.3c0-3.9-.5-6.6-1.6-8.3-1-1.7-2.8-2.5-5.2-2.5zM256 45.7c-2.2 0-3.9.8-4.9 2.3-1.1 1.5-1.7 3.9-1.8 7.1h12.9v-.7c-.1-3.1-.7-5.3-1.7-6.7-1-1.3-2.5-2-4.5-2zM316.1 45.7c-2.2 0-4 1-5.3 2.9-1.3 1.9-2 4.6-2 7.9v3.1c0 3.4.7 6 2 7.9 1.3 1.9 3.1 2.9 5.3 2.9 4.7 0 7.2-3.4 7.3-10.2v-3.7c0-3.4-.7-6-2-7.9-1.3-1.9-3.1-2.9-5.3-2.9zM193.6 60.3c-1.5 1.1-2.2 2.6-2.2 4.6 0 1.9.4 3.2 1.1 4 .7.8 2 1.3 3.8 1.3 1.3 0 2.6-.4 3.8-1.1 1.2-.7 2.1-1.6 2.6-2.7v-7.8h-3c-2.6.1-4.6.6-6.1 1.7z"/><path d="M430.8 0H18.2C8.2 0 0 8.2 0 18.2v72.7c0 10 8.2 18.2 18.2 18.2h412.7c10 0 18.2-8.2 18.2-18.2V18.2C449 8.2 440.8 0 430.8 0zm-362 49.6l-.5 5.1h-9.6V87H45.9V54.7h-6.5V41.8h6.4V36c0-5.3 2.5-13.5 13.6-13.5h10v11.1h-7.2c-1.2 0-2.9.6-2.9 3.1v5.2h10.3l-.8 7.7zm45.4 44.6c0 1.6-1.3 2.8-2.8 2.8-1.6 0-2.8-1.3-2.8-2.8V14.8c0-1.6 1.3-2.8 2.8-2.8 1.6 0 2.8 1.3 2.8 2.8v79.4zm67.5-61.8c-.8-.2-1.6-.3-2.5-.3-3 0-4.6 2.2-4.6 6.5v3.1h5.6V46h-5.6v28.4h-5.4V46.1h-4.3v-4.3h4.3V38c.1-3.3.9-5.9 2.5-7.8 1.6-1.9 3.9-2.8 6.9-2.8 1.1 0 2.1.2 3.2.5l-.1 4.5zM209 74.5h-5.6c-.3-.7-.6-1.9-.7-3.6-1.9 2.8-4.3 4.2-7.3 4.2s-5.3-.8-6.9-2.5-2.5-4-2.5-7c0-3.3 1.1-6 3.4-7.9 2.3-2 5.4-3 9.3-3h3.9v-3.5c0-2-.4-3.4-1.3-4.2-.9-.8-2.2-1.2-4-1.2-1.6 0-2.9.5-3.9 1.4-1 1-1.5 2.2-1.5 3.6h-5.4c0-1.7.5-3.3 1.5-4.8s2.3-2.7 4-3.6c1.7-.9 3.5-1.3 5.6-1.3 3.4 0 5.9.8 7.6 2.5 1.7 1.7 2.6 4.1 2.7 7.3v16.5c0 2.5.4 4.7 1 6.6v.5zm13.3-6.3c1.1 1.6 2.9 2.4 5.4 2.4 1.8 0 3.2-.5 4.3-1.6 1.1-1.1 1.7-2.7 1.8-4.7h5.1c-.1 3.1-1.2 5.8-3.3 7.8-2.1 2.1-4.7 3.1-7.7 3.1-4.1 0-7.1-1.3-9.3-3.8-2.1-2.6-3.2-6.4-3.2-11.4v-3.6c0-4.9 1.1-8.7 3.2-11.3s5.2-3.9 9.3-3.9c3.4 0 6 1.1 8 3.2s3 5 3.1 8.7h-5.1c-.1-2.4-.7-4.2-1.7-5.4-1-1.2-2.5-1.8-4.3-1.8-2.4 0-4.1.8-5.3 2.3-1.2 1.6-1.7 4.1-1.8 7.7V60c-.2 3.8.3 6.6 1.5 8.2zm45.3-8.5h-18.3v.8c0 3.5.7 6.1 2 7.7 1.3 1.6 3.2 2.4 5.7 2.4 1.6 0 3-.3 4.2-.9 1.2-.6 2.3-1.5 3.4-2.8l2.8 3.4c-2.3 3.3-5.9 4.9-10.6 4.9-4.1 0-7.2-1.2-9.4-3.6-2.2-2.4-3.3-6-3.3-10.7v-4c0-4.9 1.1-8.7 3.2-11.5 2.1-2.8 5.1-4.2 8.9-4.2 3.8 0 6.7 1.2 8.6 3.7 1.9 2.4 2.9 6.2 2.9 11.4v3.4zm30.1 0c0 5.1-.9 9-2.8 11.5-1.8 2.6-4.5 3.9-8 3.9s-6.1-1.5-7.8-4.5l-.3 3.9H274V28h5.3v17.3c1.8-2.8 4.3-4.2 7.6-4.2 3.6 0 6.3 1.3 8.1 3.8 1.8 2.5 2.7 6.4 2.7 11.5v3.3zm31.1 0c0 4.7-1.2 8.5-3.5 11.3-2.3 2.8-5.4 4.1-9.2 4.1-3.8 0-6.8-1.3-9.1-4s-3.5-6.3-3.6-10.9v-3.6c0-4.8 1.2-8.5 3.5-11.3 2.3-2.8 5.4-4.2 9.2-4.2 3.8 0 6.8 1.4 9.2 4.1 2.3 2.7 3.5 6.4 3.6 11v3.5zm31.1 0c0 4.7-1.2 8.5-3.5 11.3-2.3 2.8-5.4 4.1-9.2 4.1-3.8 0-6.8-1.3-9.1-4s-3.5-6.3-3.6-10.9v-3.6c0-4.8 1.2-8.5 3.5-11.3 2.3-2.8 5.4-4.2 9.2-4.2 3.8 0 6.8 1.4 9.2 4.1 2.3 2.7 3.5 6.4 3.6 11v3.5zm24 14.8l-8.9-15-2.8 3.3v11.7h-5.4V28h5.4v27.8l10.2-14.1h6.4l-10.4 13.7 11.8 19.1h-6.3z"/><path d="M347.2 45.7c-2.2 0-4 1-5.3 2.9-1.3 1.9-2 4.6-2 7.9v3.1c0 3.4.7 6 2 7.9 1.3 1.9 3.1 2.9 5.3 2.9 4.7 0 7.2-3.4 7.3-10.2v-3.7c0-3.4-.7-6-2-7.9-1.3-1.9-3.1-2.9-5.3-2.9z"/><g><path d="M285.5 45.9c-2.8 0-4.8 1.5-6.2 4.5V66c1.3 2.9 3.4 4.4 6.2 4.4 2.4 0 4.2-.8 5.2-2.5s1.6-4.3 1.6-7.9v-3.3c0-3.9-.5-6.6-1.6-8.3-1-1.7-2.8-2.5-5.2-2.5zM256 45.7c-2.2 0-3.9.8-4.9 2.3-1.1 1.5-1.7 3.9-1.8 7.1h12.9v-.7c-.1-3.1-.7-5.3-1.7-6.7-1-1.3-2.5-2-4.5-2zM316.1 45.7c-2.2 0-4 1-5.3 2.9-1.3 1.9-2 4.6-2 7.9v3.1c0 3.4.7 6 2 7.9 1.3 1.9 3.1 2.9 5.3 2.9 4.7 0 7.2-3.4 7.3-10.2v-3.7c0-3.4-.7-6-2-7.9-1.3-1.9-3.1-2.9-5.3-2.9zM193.6 60.3c-1.5 1.1-2.2 2.6-2.2 4.6 0 1.9.4 3.2 1.1 4 .7.8 2 1.3 3.8 1.3 1.3 0 2.6-.4 3.8-1.1 1.2-.7 2.1-1.6 2.6-2.7v-7.8h-3c-2.6.1-4.6.6-6.1 1.7z"/><path d="M430.8 0H18.2C8.2 0 0 8.2 0 18.2v72.7c0 10 8.2 18.2 18.2 18.2h412.7c10 0 18.2-8.2 18.2-18.2V18.2C449 8.2 440.8 0 430.8 0zm-362 49.6l-.5 5.1h-9.6V87H45.9V54.7h-6.5V41.8h6.4V36c0-5.3 2.5-13.5 13.6-13.5h10v11.1h-7.2c-1.2 0-2.9.6-2.9 3.1v5.2h10.3l-.8 7.7zm45.4 44.6c0 1.6-1.3 2.8-2.8 2.8-1.6 0-2.8-1.3-2.8-2.8V14.8c0-1.6 1.3-2.8 2.8-2.8 1.6 0 2.8 1.3 2.8 2.8v79.4zm67.5-61.8c-.8-.2-1.6-.3-2.5-.3-3 0-4.6 2.2-4.6 6.5v3.1h5.6V46h-5.6v28.4h-5.4V46.1h-4.3v-4.3h4.3V38c.1-3.3.9-5.9 2.5-7.8 1.6-1.9 3.9-2.8 6.9-2.8 1.1 0 2.1.2 3.2.5l-.1 4.5zM209 74.5h-5.6c-.3-.7-.6-1.9-.7-3.6-1.9 2.8-4.3 4.2-7.3 4.2s-5.3-.8-6.9-2.5-2.5-4-2.5-7c0-3.3 1.1-6 3.4-7.9 2.3-2 5.4-3 9.3-3h3.9v-3.5c0-2-.4-3.4-1.3-4.2-.9-.8-2.2-1.2-4-1.2-1.6 0-2.9.5-3.9 1.4-1 1-1.5 2.2-1.5 3.6h-5.4c0-1.7.5-3.3 1.5-4.8s2.3-2.7 4-3.6c1.7-.9 3.5-1.3 5.6-1.3 3.4 0 5.9.8 7.6 2.5 1.7 1.7 2.6 4.1 2.7 7.3v16.5c0 2.5.4 4.7 1 6.6v.5zm13.3-6.3c1.1 1.6 2.9 2.4 5.4 2.4 1.8 0 3.2-.5 4.3-1.6 1.1-1.1 1.7-2.7 1.8-4.7h5.1c-.1 3.1-1.2 5.8-3.3 7.8-2.1 2.1-4.7 3.1-7.7 3.1-4.1 0-7.1-1.3-9.3-3.8-2.1-2.6-3.2-6.4-3.2-11.4v-3.6c0-4.9 1.1-8.7 3.2-11.3s5.2-3.9 9.3-3.9c3.4 0 6 1.1 8 3.2s3 5 3.1 8.7h-5.1c-.1-2.4-.7-4.2-1.7-5.4-1-1.2-2.5-1.8-4.3-1.8-2.4 0-4.1.8-5.3 2.3-1.2 1.6-1.7 4.1-1.8 7.7V60c-.2 3.8.3 6.6 1.5 8.2zm45.3-8.5h-18.3v.8c0 3.5.7 6.1 2 7.7 1.3 1.6 3.2 2.4 5.7 2.4 1.6 0 3-.3 4.2-.9 1.2-.6 2.3-1.5 3.4-2.8l2.8 3.4c-2.3 3.3-5.9 4.9-10.6 4.9-4.1 0-7.2-1.2-9.4-3.6-2.2-2.4-3.3-6-3.3-10.7v-4c0-4.9 1.1-8.7 3.2-11.5 2.1-2.8 5.1-4.2 8.9-4.2 3.8 0 6.7 1.2 8.6 3.7 1.9 2.4 2.9 6.2 2.9 11.4v3.4zm30.1 0c0 5.1-.9 9-2.8 11.5-1.8 2.6-4.5 3.9-8 3.9s-6.1-1.5-7.8-4.5l-.3 3.9H274V28h5.3v17.3c1.8-2.8 4.3-4.2 7.6-4.2 3.6 0 6.3 1.3 8.1 3.8 1.8 2.5 2.7 6.4 2.7 11.5v3.3zm31.1 0c0 4.7-1.2 8.5-3.5 11.3-2.3 2.8-5.4 4.1-9.2 4.1-3.8 0-6.8-1.3-9.1-4s-3.5-6.3-3.6-10.9v-3.6c0-4.8 1.2-8.5 3.5-11.3 2.3-2.8 5.4-4.2 9.2-4.2 3.8 0 6.8 1.4 9.2 4.1 2.3 2.7 3.5 6.4 3.6 11v3.5zm31.1 0c0 4.7-1.2 8.5-3.5 11.3-2.3 2.8-5.4 4.1-9.2 4.1-3.8 0-6.8-1.3-9.1-4s-3.5-6.3-3.6-10.9v-3.6c0-4.8 1.2-8.5 3.5-11.3 2.3-2.8 5.4-4.2 9.2-4.2 3.8 0 6.8 1.4 9.2 4.1 2.3 2.7 3.5 6.4 3.6 11v3.5zm24 14.8l-8.9-15-2.8 3.3v11.7h-5.4V28h5.4v27.8l10.2-14.1h6.4l-10.4 13.7 11.8 19.1h-6.3z"/><path d="M347.2 45.7c-2.2 0-4 1-5.3 2.9-1.3 1.9-2 4.6-2 7.9v3.1c0 3.4.7 6 2 7.9 1.3 1.9 3.1 2.9 5.3 2.9 4.7 0 7.2-3.4 7.3-10.2v-3.7c0-3.4-.7-6-2-7.9-1.3-1.9-3.1-2.9-5.3-2.9z"/></g></svg>
+</a>
+  </div>
+
+<div class="box rechts twitter">
+<a href="https://twitter.com/hccconnect" target="_blank" title="Twitter">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 449 109" enable-background="new 0 0 449 109"><path d="M430.8 0H18.2C8.2 0 0 8.2 0 18.2v72.6c0 10 8.2 18.2 18.2 18.2h412.7c10 0 18.2-8.2 18.2-18.2V18.2C449 8.2 440.8 0 430.8 0zM80.2 44.7v1.7c0 2.6-.3 5.3-.9 7.9C76 69.1 63.2 83.4 42.5 83.4c-7.5 0-14.4-2.2-20.3-5.9 1 .1 2.1.2 3.2.2 6.2 0 11.9-2.1 16.5-5.6-5.8-.1-10.7-3.9-12.4-9.1.8.1 1.6.2 2.5.2 1.2 0 2.4-.2 3.5-.5-4.5-.9-8.1-4-9.7-8.1-.6-1.5-.9-3.1-.9-4.7v-.2c1.8 1 3.8 1.6 6 1.6C27.4 49 25 45 25 40.4c0-2.4.7-4.6 1.8-6.6 6.4 8.3 16.2 13.5 27.2 14-.2-1-.3-2-.3-3 0-7.2 5.9-13 13.3-13 3.8 0 7.3 1.6 9.7 4.1 3-.6 5.9-1.7 8.4-3.2-1 3-3.1 5.6-5.8 7.2 2.7-.3 5.2-1 7.6-2-1.9 2.6-4.1 4.9-6.7 6.8zm34 49.5c0 1.6-1.3 2.8-2.8 2.8-1.6 0-2.8-1.3-2.8-2.8V14.8c0-1.6 1.3-2.8 2.8-2.8 1.6 0 2.8 1.3 2.8 2.8v79.4zm99.9-19.4c-1.2.4-2.5.6-3.7.6-2.1 0-3.7-.8-4.8-2.3-1.1-1.5-1.7-3.7-1.7-6.4V46.4h-5v-4.3h5v-7.9h5.3v7.9h4.9v4.3h-4.9v20.3c0 1.3.2 2.3.6 2.9s1.2 1 2.2 1c.7 0 1.4-.1 2.1-.4v4.6zm33.1 0h-4.3l-6.4-23.4-6.2 23.4H226L218 42h5.3l5.1 22.8 6.1-22.8h4.2l6.2 23.3 5-23.3h5.3l-8 32.8zm19.4 0h-5.4V42.1h5.4v32.7zm-.3-39.2c-.5.6-1.3.9-2.3.9-1 0-1.8-.3-2.3-.9-.5-.6-.8-1.4-.8-2.3s.3-1.7.8-2.3c.5-.6 1.3-.9 2.3-.9 1 0 1.8.3 2.3 1s.8 1.4.8 2.3c-.1.9-.3 1.6-.8 2.2zm20.6 39.2c-1.2.4-2.5.6-3.7.6-2.1 0-3.7-.8-4.8-2.3-1.1-1.5-1.7-3.7-1.7-6.4V46.4h-5v-4.3h5v-7.9h5.3v7.9h4.9v4.3H282v20.3c0 1.3.2 2.3.6 2.9s1.2 1 2.2 1c.7 0 1.4-.1 2.1-.4v4.6zm18.3 0c-1.2.4-2.5.6-3.7.6-2.1 0-3.7-.8-4.8-2.3-1.1-1.5-1.7-3.7-1.7-6.4V46.4h-5v-4.3h5v-7.9h5.3v7.9h4.9v4.3h-4.9v20.3c0 1.3.2 2.3.6 2.9s1.2 1 2.2 1c.7 0 1.4-.1 2.1-.4v4.6zm29-14.8H316v.8c0 3.5.7 6.1 2 7.7 1.3 1.6 3.2 2.4 5.7 2.4 1.6 0 3-.3 4.2-.9 1.2-.6 2.3-1.5 3.4-2.8l2.8 3.4c-2.3 3.3-5.9 4.9-10.6 4.9-4.1 0-7.2-1.2-9.4-3.6-2.2-2.4-3.3-6-3.3-10.7v-4c0-4.9 1.1-8.7 3.2-11.5 2.1-2.8 5.1-4.2 8.9-4.2 3.8 0 6.7 1.2 8.6 3.7 1.9 2.4 2.9 6.2 2.9 11.4V60zm17.6-13.1c-2.7 0-4.7 1.5-5.8 4.5v23.4h-5.4V42.1h5.2l.1 3.3c1.4-2.6 3.5-3.9 6.1-3.9.8 0 1.6.1 2.1.4v5.2c-.7-.2-1.5-.2-2.3-.2z"/><path d="M322.7 46.1c-2.2 0-3.9.8-4.9 2.3-1.1 1.5-1.7 3.9-1.8 7.1h12.9v-.7c-.1-3.1-.7-5.3-1.7-6.7-1-1.4-2.5-2-4.5-2z"/></svg>
+    </a>
+  </div>
+
+</div></div>
+<dd></dd></dl></div>
+</div></div><div class=" toon module"><div class="module__content"><a href="/?format=feed&amp;type=rss" class="syndicate-module toon">
+	<img src="/media/system/images/livemarks.png" alt="feed-image" />	</a>
+</div></div>
+				</div>
+			</div>
+		</div>
+	</main>
+
+		<div class="site-numbers">
+		<div class="container">
+
+
+<div class="custom"  >
+	<ul class="site-numbers__list">
+<li class="site-numbers__item site-numbers__item-members"><a href="/vereniging/lidmaatschap" style="color: #fff;"><strong> +50K </strong> leden</a></li>
+<li class="site-numbers__item site-numbers__item-groups"><a href="/vereniging/interessegroepen" style="color: #fff;"><strong> 25</strong> interessegroepen</a></li>
+<li class="site-numbers__item site-numbers__item-locations"><a href="/vereniging/regio-s" style="color: #fff;"><strong> 24</strong> regio's</a></li>
+<li class="site-numbers__item site-numbers__item-advantages"><a href="/vereniging/ledenvoordeel" style="color: #fff;"><strong> +20</strong> voordelen</a></li>
+<li class="site-numbers__item site-numbers__item-editions"><a href="/pc-active" style="color: #fff;"><strong> 291</strong> edities</a></li>
+<li id="verberg" class="site-numbers__item site-numbers__item-call"><a href="/contact"></a></li>
+</ul></div>
+
+		</div>
+	</div>
+
+	<div class="site__footer">
+		<div class="container">
+			<div class="site-footer__navigation">
+									<ul class="nav menu">
+<li class="item-699"><a href="/sitemap" >sitemap</a></li><li class="item-701"><a href="/lid-worden" >word lid</a></li><li class="item-703"><a href="/index.php?option=com_rsform&amp;view=rsform&amp;formId=5&amp;form[Onderwerp]=Lidmaatschap%20opzeggen" >opzeggen</a></li><li class="item-705"><a href="/contact" >contact</a></li><li class="item-707"><a href="/informatie" >informatie</a></li><li class="item-709"><a href="/algemene-voorwaarden-hcc" >algemene voorwaarden</a></li></ul>
+
+							</div>
+		</div>
+	</div>
+
+</div>
+
+
+
+
+<script type="text/javascript">
+	responsivemenu.init({
+		wrapper: document.querySelector('.navigation_container'),
+		togglecontent: '<span class="toggle-text">menu</span><span class="hamburger"><span class="bar1"></span><span class="bar2"></span><span class="bar3"></span></span>',
+		width: 768
+	});
+</script>
+
+</body>
+</html>

@@ -1,5 +1,6 @@
 import re
 import threading
+import pickle
 
 import lxml.html
 import requests
@@ -32,7 +33,9 @@ class Spider(threading.Thread):
         Add this result to the UrlResult as a key and value pair."""
 
         try:
-            html = requests.get(listUrl).text
+            file = open('../list/data/' + listUrl, 'r')
+
+            html = file.read()
             document = lxml.html.document_fromstring(html)
             content = "\n".join(etree.XPath("//text()")(document))
 
@@ -42,5 +45,18 @@ class Spider(threading.Thread):
             self.result.set_found(found)
         except Exception as e:
             print(e)
+
+def take_sitename(url):
+    s = url.split('.')
+    x = s[len(s) - 2] + "." + s[len(s) - 1]
+
+    if 'http://' in x:
+        x = x[7:]
+    if 'https://' in x:
+        x = x[8:]
+
+
+    return x.split('/')[0].split('.')[0]
+
 
 

@@ -21,24 +21,24 @@ class CommonCrawl:
     def start(self):
         print("---------- CommonCrawl Starting ----------")
 
-        record_list = self.search_domain()
-        link_list = []
-
-        amount = 0
-        for link in record_list:
-
-            try:
-                html_content = download_page(link, self.index_list[0])
-
-                if not html_content.isspace():
-                    year = int(self.index_list[0][:4])
-                    MongoHelper.insertURLInfo(link, html_content, year)
-
-                    print("[*] Retrieved %d bytes for %s" % (len(html_content), link))
-            except Exception as e:
-                print("Url could not be crawled")
-
-        print("[*] Total external links discovered: %d" % len(link_list))
+        # record_list = self.search_domain()
+        # link_list = []
+        #
+        # amount = 0
+        # for link in record_list:
+        #
+        #     try:
+        #         html_content = download_page(link, self.index_list[0])
+        #
+        #         if not html_content.isspace():
+        #             year = int(self.index_list[0][:4])
+        #             MongoHelper.insertURLInfo(link, html_content, year)
+        #
+        #             print("[*] Retrieved %d bytes for %s" % (len(html_content), link))
+        #     except Exception as e:
+        #         print("Url could not be crawled")
+        #
+        # print("[*] Total external links discovered: %d" % len(link_list))
 
         self.end()
 

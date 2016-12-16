@@ -28,7 +28,7 @@ class Crawler:
         self.create_threads()
 
         while not self.queue.empty():
-            time.sleep(2)
+            time.sleep(0)
             pass
         for t in threads:
             t.join()
