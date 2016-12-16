@@ -1,6 +1,7 @@
 from lxml import html
 import requests
 
+""""Providing functions to scan Listing webstites that need special code to retrieve the information we want."""
 
 def check_winkelsnederland(sitename):
     page = requests.get('http://www.winkels-nederland.nl/')
@@ -15,7 +16,7 @@ def check_winkelsnederland(sitename):
 
 
 def check_dagaanbiedingen(sitename):
-    page = requests.get('http://www.dagaanbiedingen.nl/webwinkels.html')
+    page = requests.get('http://www.dagaanbiedingen.nl/webwinkels.html', verify=False)
     tree = html.fromstring(page.content)
     stores = []
 

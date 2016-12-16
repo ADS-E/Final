@@ -9,11 +9,15 @@ from helpers import MLHelper
 from ml import SetsHelper
 from webcrawler.Spider import Spider
 
-
+""""Class used to feed the found websites through the Machine Learning algorithms"""
 class ML:
     def __init__(self, check_scope):
         self.check_scope = check_scope
 
+    """Get the Naive Bayes classifier or if it doesn't exist create one.
+    For all the entries in MongoDB get the html content. Run this content through the spider
+    to get the word occurences. Feed this data through the algorithm and save the result to the
+    'ml' parameter of the entry in MongoDB"""
     def start(self):
         print("---------- ML Starting Scope: %s ----------" % self.check_scope)
 
@@ -32,14 +36,17 @@ class ML:
 
             spider = Spider(url, content)
             result = spider.process()
-            result.set_page_count(1)
+            predicted = False
 
-            list = MLHelper.divide_one('PageCount', result.csv_format())
-            data = np.reshape(list, (1, -1))
+            if result is not None:
+                result.set_page_count(1)
 
-            predicted = bool(np.asscalar(clf.predict(data)[0]))
+                list = MLHelper.divide_one('PageCount', result.csv_format())
+                data = np.reshape(list, (1, -1))
 
-            print("%s predicted: %s" % (url, predicted))
+                predicted = bool(np.asscalar(clf.predict(data)[0]))
+
+                print("%s predicted: %s" % (url, predicted))
 
             if self.check_scope:
                 site['webshop'] = predicted
@@ -51,6 +58,7 @@ class ML:
         joblib.dump(clf, plk)
         self.end()
 
+    """"End the Machine Learning by starting the Decider or the Listing"""
     def end(self):
         print("---------- ML Ending Scope: %s ----------" % self.check_scope)
 
@@ -65,6 +73,8 @@ class ML:
             listing = Listing(False)
             listing.start()
 
+    """"Create the classifier by getting the scope or the webshop
+     data depending on what the machine learning has to decide. After that fit it with the data"""
     def build_classifier(self):
         if self.check_scope:
             data = MLHelper.get_scope_data()

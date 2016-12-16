@@ -23,16 +23,19 @@ class Spider:
 
         try:
             html = self.content
-            document = lxml.html.document_fromstring(html)
-            content = "\n".join(etree.XPath("//text()")(document))
+            if html.isspace():
+                return None
+            else :
+                document = lxml.html.document_fromstring(html)
+                content = "\n".join(etree.XPath("//text()")(document))
 
-            word_count = len(content.split())
-            self.result.set_word_count(word_count)
+                word_count = len(content.split())
+                self.result.set_word_count(word_count)
 
-            for word in self.words:
-                count = len(re.findall(re.compile(word, re.IGNORECASE), content))
-                self.result.put(word, count)
+                for word in self.words:
+                    count = len(re.findall(re.compile(word, re.IGNORECASE), content))
+                    self.result.put(word, count)
 
-            return self.result
+                return self.result
         except Exception as e:
             print(e)

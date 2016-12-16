@@ -24,12 +24,9 @@ class CommonCrawl:
         record_list = self.search_domain()
         link_list = []
 
-        amount = 0;
+        amount = 0
         for link in record_list:
-            if amount == 10:
-                break
 
-            amount += 1
 
             try:
                 html_content = download_page(link, self.index_list[0])
@@ -54,13 +51,11 @@ class CommonCrawl:
         ml = ML(False)
         ml.start()
 
-    #
-    # Searches the Common Crawl Index for a domain.
-    #
+    """Searches the Common Crawl Index for a specified domain."""
     def search_domain(self):
         record_list = set()
 
-        print("[*] Trying target domain: %s" % self.domain)
+        print("Trying target domain: %s" % self.domain)
 
         for index in self.index_list:
 
@@ -80,17 +75,16 @@ class CommonCrawl:
 
                     record_list.add(url)
 
-                print("[*] Added %d results." % len(records))
+                print("Added %d results." % len(records))
 
-        print("[*] Found a total of %d hits." % len(record_list))
+        print("Found a total of %d hits." % len(record_list))
 
         return record_list
 
 
-#
-# Downloads a page from Common Crawl - adapted graciously from @Smerity - thanks man!
-# https://gist.github.com/Smerity/56bc6f21a8adec920ebf
-#
+
+"""Download a page retrieved by an URL from Common Crawl.
+Strip all the html tags from the content to save space in MongoDB"""
 def download_page(url, index):
     record = get_record(url, index)
     resp = get_response(record)
@@ -101,12 +95,12 @@ def download_page(url, index):
 
         resp = get_response(record)
 
-    # The page is stored compressed (gzip) to save space
-    # We can extract it using the GZIP library
+    """The page is stored compressed (gzip) to save space
+    it can be extracted by using the GZIP library"""
     raw_data = io.BytesIO(resp.content)
     f = gzip.GzipFile(fileobj=raw_data)
 
-    # What we have now is just the WARC response, formatted:
+    """What we have now is just the WARC response, formatted:"""
     data = f.read()
 
     response = ""
@@ -120,18 +114,20 @@ def download_page(url, index):
     return content
 
 
+""""Get the base URL from the record"""
 def get_base_url(record):
     url = record['url']
     location = 'http://' + urlparse(url).netloc
 
     return location
 
-
+""""Get the base URL from a given URL by loading the page and seeing
+how the server redirects it to an adjusted URL. This is the fixed base URL"""
 def get_fixed_base_url(url):
     request = requests.get(url)
     return request.url
 
-
+""""Get the Commoncrawl record for the given URL and the given Commoncrawl index"""
 def get_record(url, index):
     cc_url = "http://index.commoncrawl.org/CC-MAIN-%s-index?" % index
     cc_url += "url=%s&matchType=domain&output=json" % url
@@ -145,20 +141,19 @@ def get_record(url, index):
 
     return None
 
-
+""""Get the data from the Commoncrawl record"""
 def get_response(record):
     offset, length = int(record['offset']), int(record['length'])
     offset_end = offset + length - 1
 
-    # We'll get the file via HTTPS so we don't need to worry about S3 credentials
-    # Getting the file on S3 is equivalent however - you can request a Range
+    """Get the file via HTTPS so we don't need to worry about S3 credentials."""
     prefix = 'https://commoncrawl.s3.amazonaws.com/'
 
-    # We can then use the Range header to ask for just this set of bytes
+    """Use the Range header to ask for just this set of bytes"""
     resp = requests.get(prefix + record['filename'], headers={'Range': 'bytes={}-{}'.format(offset, offset_end)})
 
     return resp
 
-
+""""Start the program"""
 cc = CommonCrawl()
 cc.start()

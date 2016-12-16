@@ -10,10 +10,11 @@ threads = []
 
 
 class Crawler:
-    """"Class responsible for crawling urls. Urls are provided to this class in a queue."""
+    """"Class responsible for crawling urls concurrently.
+    A file with all the Listing websites needed to be scanned and the website name to be found are given."""
 
     def __init__(self, sitename, file):
-        """"Assign the queue and create an UrlResult to save the data to"""
+        """"Assign all the sites in the file to the queue and create an UrlResult to save the data to"""
 
         self.queue = Queue()
         for url in CsvHelper.read_file(file):
@@ -22,19 +23,15 @@ class Crawler:
         self.result = UrlResult(sitename)
 
     def run(self):
-        """ Create the necessary threads. Check the amount of items still in the queue every second.
+        """ Create the necessary threads.
         Wait until the queue is empty and join all the running threads."""
         self.create_threads()
 
-        start = time.clock()
         while not self.queue.empty():
             time.sleep(2)
             pass
         for t in threads:
             t.join()
-        end = time.clock()
-
-        #print('Crawling took %s seconds' % (end - start))
 
         return self.result
 

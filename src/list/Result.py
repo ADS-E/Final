@@ -2,7 +2,8 @@ import threading
 
 lock = threading.Lock()
 
-
+""""Class to save data about a webshop listing scan.
+The website name and if it was found are saved."""
 class UrlResult:
     def __init__(self, sitename):
         self._results = {}
