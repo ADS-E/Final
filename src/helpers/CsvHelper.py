@@ -21,6 +21,12 @@ def write_results(urlResult):
         writer.writerow(values)
 
 
+def write_index(index):
+    with open('index.csv', "a+", newline='') as csvfile:
+        writer = csv.writer(csvfile, delimiter=' ', dialect='excel')
+        writer.writerow(index)
+
+
 def read_results():
     """
     :param: takes the filepath as input for which file to read
@@ -32,6 +38,12 @@ def read_results():
         for row in data:
             result.append(row[0])
     return result
+
+
+def write_file(filePath, data):
+    with open(filePath, 'w') as file:
+        for item in data:
+            file.write("%s\n" % item)
 
 
 def read_file(filePath):

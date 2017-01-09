@@ -4,12 +4,15 @@ from list.Crawler import Crawler
 
 """"Class used to scan sites that have datasets about exisitng webshops in the Netherlands.
 This data can be uses to see if a website is a webshop if it is found in that site"""
+
+
 class Listing:
     def __init__(self, check_scope):
         self.check_scope = check_scope
 
     """"For all the entries in MongoDB get the name of the website and run in through the scannable sites.
     If the name is found set the 'list' parameter of the entry in MongoDB to true"""
+
     def start(self):
         print("---------- Listing Starting Scope: %s ----------" % self.check_scope)
 
@@ -38,6 +41,7 @@ class Listing:
         self.end()
 
     """"End the Listing part by starting ML or The Decider"""
+
     def end(self):
         print("---------- Listing Ending Scope: %s ----------" % self.check_scope)
 
@@ -52,7 +56,10 @@ class Listing:
             decider = Decider(False)
             decider.start()
 
+
 """"Get the stie name from the URL. So www.mediamarkt.nl becomes mediamarkt.nl"""
+
+
 def take_sitename(url):
     s = url.split('.')
     x = s[len(s) - 2] + "." + s[len(s) - 1]
