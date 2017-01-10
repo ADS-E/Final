@@ -34,7 +34,7 @@ class ML:
             url = site['url']
             content = site['content']
 
-            spider = Spider(url, content)
+            spider = Spider(url, content, '../webcrawler/words.csv')
             result = spider.process()
             predicted = False
 
