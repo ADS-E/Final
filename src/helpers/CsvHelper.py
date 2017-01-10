@@ -39,6 +39,18 @@ def read_results():
             result.append(row[0])
     return result
 
+def read_classification_results():
+    """
+    :param: takes the filepath as input for which file to read
+    :return: returns the entire csv as list of lists
+    """
+    result = []
+    with open('../category/csv/resultstest.csv') as csvfile:
+        data = csv.reader(csvfile, delimiter=';', quotechar='"')
+        for row in data:
+            result.append(row)
+    return result
+
 
 def write_file(filePath, data):
     with open(filePath, 'w') as file:
@@ -59,3 +71,13 @@ def read_file(filePath):
     data.sort()
 
     return data
+
+def get_classification_names():
+    keys = []
+    values = []
+    with open('../category/csv/mapping.csv') as csvfile:
+        data = csv.reader(csvfile, delimiter=';', quotechar='"')
+        for row in data:
+            keys.append(row[0])
+            values.append(row[1])
+    return dict(zip(keys, values))

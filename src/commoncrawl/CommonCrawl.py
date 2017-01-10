@@ -25,12 +25,13 @@ class CommonCrawl:
         self.queue = Queue()
 
     def start(self):
+
         print("---------- CommonCrawl Starting ----------")
 
         self.search_domain()
         self.download_domain()
 
-        # self.end()
+        self.end()
 
     def end(self):
         print("---------- CommonCrawl Ending ----------")

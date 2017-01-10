@@ -12,6 +12,8 @@ import os.path
 from webcrawler.Spider import Spider
 
 class Scan:
+    def __init__(self):
+        self.mapping = CsvHelper.get_classification_names()
 
     """Count for every word that needs to be checked the amount of times it's found in the page content.
       Add this result to the UrlResult as a key and value pair."""
@@ -38,12 +40,16 @@ class Scan:
 
                 list = MLHelper.divide_one('PageCount', result.csv_format())
                 data = np.reshape(list, (1, -1))
+                predicted = self.get_label_text(clf.predict(data)[0])
 
+                print("%s predicted for %s" % (predicted, url))
+
+            site['category'] = predicted
             MongoHelper.updateInfo(site)
 
 
     def build_classifier(self):
-        data = CsvHelper.classify_divide_by()
+        data = MLHelper.get_classify_data()
 
         X_train, X_test, y_train, y_test = SetsHelper.create_sets(data)
 
@@ -52,8 +58,9 @@ class Scan:
 
         return clf
 
-
-
+    def get_label_text(self, label):
+        label = str(label)
+        return self.mapping[label]
 
 
 
