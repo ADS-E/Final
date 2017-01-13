@@ -27,10 +27,10 @@ class CommonCrawl:
     def start(self):
         print("---------- CommonCrawl Starting ----------")
 
-        self.search_domain()
-        self.download_domain()
+        # self.search_domain()
+        # self.download_domain()
 
-        # self.end()
+        self.end()
 
     def end(self):
         print("---------- CommonCrawl Ending ----------")
@@ -91,13 +91,12 @@ class CommonCrawl:
                             assert False
 
             print("Done searching, found %d urls" % len(record_list))
-            CsvHelper.write_file('urls.txt', record_list)
+            CsvHelper.write_file('urls.txt', sorted(record_list))
             print("Done writing to file")
 
     def download_domain(self):
         self.queue = Queue()
-        for url in CsvHelper.read_file('urls.txt'):
-            self.queue.put(url)
+        [self.queue.put(url) for url in CsvHelper.read_file('urls.txt')]
 
         self.create_threads()
 
