@@ -16,6 +16,7 @@ INDEX = "2016-07"
 BASEURL = 'https://aws-publicdatasets.s3.amazonaws.com/'
 INDEXURL = 'common-crawl/cc-index/collections/CC-MAIN-%s/indexes/' % INDEX
 
+# INDEX = sys.argv[0]
 
 class CommonCrawl:
     def __init__(self):
@@ -25,6 +26,7 @@ class CommonCrawl:
         self.queue = Queue()
 
     def start(self):
+
         print("---------- CommonCrawl Starting ----------")
 
         # self.search_domain()

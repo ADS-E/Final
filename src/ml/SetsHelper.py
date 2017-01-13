@@ -1,4 +1,5 @@
 from sklearn.cross_validation import train_test_split
+from sklearn.feature_selection import SelectKBest
 
 
 def create_sets(data):
@@ -7,4 +8,9 @@ def create_sets(data):
     X = data[columns]
     y = data['Label']
 
+    #X = feature_selection(X,y)
     return train_test_split(X, y, test_size=0.25, random_state=33)
+
+def feature_selection(X,y):
+    sel = SelectKBest(k=10)
+    return sel.fit_transform(X,y)

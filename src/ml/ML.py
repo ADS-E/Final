@@ -84,7 +84,8 @@ class ML:
 
         X_train, X_test, y_train, y_test = SetsHelper.create_sets(data)
 
-        clf = MultinomialNB(alpha=0, fit_prior=False)
+        clf = GaussianNB()
         clf.fit(X_train, y_train)
 
         return clf
+

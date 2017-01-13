@@ -31,13 +31,11 @@ def get_scope_data():
 def get_webshop_data():
     return get_raw_data(False)
 
+def get_classify_data():
+     return pd.read_csv("../category/csv/results.csv", delimiter=';')
 
 def get_data():
     data = get_raw_data()
-    # data = data.applymap(lel)
-
-    # print(data)
-
     return data
 
 
