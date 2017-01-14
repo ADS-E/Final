@@ -16,6 +16,7 @@ INDEX = "2016-07"
 BASEURL = 'https://aws-publicdatasets.s3.amazonaws.com/'
 INDEXURL = 'common-crawl/cc-index/collections/CC-MAIN-%s/indexes/' % INDEX
 
+
 # INDEX = sys.argv[0]
 
 class CommonCrawl:
@@ -26,11 +27,10 @@ class CommonCrawl:
         self.queue = Queue()
 
     def start(self):
-
         print("---------- CommonCrawl Starting ----------")
 
-        # self.search_domain()
-        # self.download_domain()
+        # self.search_commoncrawl()
+        # self.download_found()
 
         self.end()
 
@@ -44,7 +44,7 @@ class CommonCrawl:
 
     """Searches the Common Crawl Index for a specified domain."""
 
-    def search_domain(self):
+    def search_commoncrawl(self):
         record_list = set()
 
         for j in range(1):
@@ -52,14 +52,11 @@ class CommonCrawl:
             filename = 'cdx-%05d.gz' % 260
             cc_url = BASEURL + INDEXURL + filename
 
-            print("[*] Trying %s" % cc_url)
+            print("Trying archive %s" % cc_url)
             # CsvHelper.write_index(cc_url)
 
             response = requests.get(cc_url, stream=True)
             decompressor = zlib.decompressobj(16 + zlib.MAX_WBITS)
-
-            # iterations = int(int(response.headers['content-length'].strip()) / 2048)
-            # print("NUMBER: %s" % j)
 
             i = 0
             for chunk in response.iter_content(chunk_size=2048):
@@ -96,21 +93,24 @@ class CommonCrawl:
             CsvHelper.write_file('urls.txt', sorted(record_list))
             print("Done writing to file")
 
-    def download_domain(self):
+    """"Downloading all the found urls"""
+
+    def download_found(self):
+        # Put all the found urls into a queue for the threads to read from
         self.queue = Queue()
         [self.queue.put(url) for url in CsvHelper.read_file('urls.txt')]
 
+        # Create the threads and wait for them to finish
         self.create_threads()
 
         for t in self.threads:
-            t.exit()
-        for t in self.threads:
             t.join()
 
-    def create_threads(self):
-        """Create, start and add threads to a list. Threads run an instance of Spider.
-        The amount of threads created depends on the amount of cores found in the system."""
+    """"Create a number of threads based on the host available amount of threads.
+    These threads run an instance of the Downloader class"""
 
+    def create_threads(self):
+        # Creates threads and add them to a list.
         for i in range(1, multiprocessing.cpu_count()):
             name = "Thread-%s" % i
             thread = Downloader(name, INDEX, self.queue)
@@ -118,7 +118,7 @@ class CommonCrawl:
             self.threads.append(thread)
 
 
-""""Get the base URL from the record"""
+"""Get the base URL from the record"""
 
 
 def get_base_url(record):
@@ -127,8 +127,6 @@ def get_base_url(record):
 
     return location
 
-
-""""Get the Commoncrawl record for the given URL and the given Commoncrawl index"""
 
 """"Start the program"""
 cc = CommonCrawl()

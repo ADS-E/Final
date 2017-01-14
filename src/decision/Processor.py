@@ -2,20 +2,21 @@ import threading
 
 import MongoHelper
 
+""""Class inheriting a thread responsible for the processing part of the decision and updating this in MongoDb"""
+
 
 class Processor(threading.Thread):
-    """"Class used for scanning urls on containing certain words."""
-
     def __init__(self, name, queue, check_scope):
         threading.Thread.__init__(self)
         self.name = name
         self.queue = queue
         self.check_scope = check_scope
 
-    def run(self):
-        """"Get an url from the queue, process the url and notify the queue the task on the retrieved item is done.
-        Continue this process while the queue has items"""
+    """"Get an id from the queue, process the object belonging this id and notify the queue
+    the task on the retrieved item is done.
+    Continue this process while the queue has items"""
 
+    def run(self):
         while not self.queue.empty():
             id = self.queue.get()
 

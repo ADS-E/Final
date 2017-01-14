@@ -3,6 +3,7 @@ import os.path
 from queue import Queue
 
 from sklearn.externals import joblib
+from sklearn.naive_bayes import GaussianNB
 
 import MongoHelper
 from helpers import MLHelper

@@ -4,6 +4,9 @@ from queue import Queue
 import MongoHelper
 from decision.Processor import Processor
 
+"""""Class responsible for looking at the results of all analysing methods
+and according to this data deciding what should happen to the scanned sites."""
+
 
 class Decider:
     def __init__(self, check_scope):
@@ -15,9 +18,10 @@ class Decider:
     def start(self):
         print("---------- Decider Starting Scope: %s ----------" % self.check_scope)
 
-        # Looping through all currently present id's in MongoDB
+        # Loop through all currently present id's in MongoDB and add them to a queue for the threads to read from.
         [self.queue.put(id) for id in MongoHelper.getAllIds()]
 
+        # Create the threads and wait for them to finish
         self.create_threads()
 
         for t in self.threads:
@@ -25,10 +29,11 @@ class Decider:
 
         self.end()
 
-    def create_threads(self):
-        """Create, start and add threads to a list. Threads run an instance of Spider.
-        The amount of threads created depends on the amount of cores found in the system."""
+    """"Create a number of threads based on the host available amount of threads.
+    These threads run an instance of the Downloader class"""
 
+    def create_threads(self):
+        # Creates threads and add them to a list.
         for i in range(1, multiprocessing.cpu_count()):
             name = "Thread-%s" % i
             thread = Processor(name, self.queue, self.check_scope)
@@ -39,7 +44,7 @@ class Decider:
         print("---------- Decider Ending Scope: %s ----------" % self.check_scope)
 
         if not self.check_scope:
-            # If we are done checking website/webshop continue with Maps
+            # If done with checking website/webshop continue with Maps
             from maps.Maps import Maps
 
             maps = Maps()

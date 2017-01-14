@@ -44,7 +44,7 @@ class MLProcessor(threading.Thread):
         if result is not None:
             result.set_page_count(1)
 
-            list = MLHelper.divide_one('PageCount', result.csv_format())
+            list = MLHelper.remove_columns(result.csv_format())
             data = np.reshape(list, (1, -1))
 
             predicted = bool(np.asscalar(self.clf.predict(data)[0]))
