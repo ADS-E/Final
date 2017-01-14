@@ -1,10 +1,8 @@
 import multiprocessing
+import os.path
 from queue import Queue
 
 from sklearn.externals import joblib
-from sklearn.naive_bayes import MultinomialNB
-
-import os.path
 
 import MongoHelper
 from helpers import MLHelper
@@ -63,7 +61,7 @@ class ML:
         print("---------- ML Ending Scope: %s ----------" % self.check_scope)
 
         if self.check_scope:
-            from Decider import Decider
+            from decision.Decider import Decider
 
             decider = Decider(True)
             decider.start()

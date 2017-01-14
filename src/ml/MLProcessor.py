@@ -1,6 +1,7 @@
 import threading
 
 import numpy as np
+import time
 
 import MongoHelper
 from helpers import MLHelper
@@ -30,6 +31,8 @@ class MLProcessor(threading.Thread):
         print("%s done" % self.name)
 
     def process(self, id):
+        startTotal = time.process_time()
+
         site = MongoHelper.getResultById(id)
         url = site['url']
         content = site['content']
@@ -54,4 +57,14 @@ class MLProcessor(threading.Thread):
         else:
             site['scope'] = predicted
 
-            # MongoHelper.updateInfo(site)
+            #startMongo = time.process_time()
+            MongoHelper.updateValue(site, 'ml')
+
+            #endMongo = time.process_time()
+            endTotal = time.process_time()
+
+            #resultMongo = endMongo - startMongo
+            resultTotal = endTotal - startTotal
+
+           # print("Mongo: %s" % resultMongo)
+            print("Total: %s" % resultTotal)
