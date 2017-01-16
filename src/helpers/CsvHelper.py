@@ -1,57 +1,55 @@
 import csv
 
 
-def write_results(urlResult):
-    """
-    :param: filepath where to write the result to
-    :param: list (including list of lists)(default [])
-    :return: boolean (depending on success)
-    """
-    with open('results.csv', "a+", newline='') as csvfile:
-        writer = csv.writer(csvfile, delimiter=';', dialect='excel')
-
-        columns = read_file('sites.csv')
-        columns.insert(0, 'URL')
-        columns.insert(len(columns), "WordCount")
-        columns.insert(len(columns), "PageCount")
-
-        writer.writerow(columns)
-
-        values = urlResult.csv_format()
-        writer.writerow(values)
-
-
 def write_index(index):
     with open('index.csv', "a+", newline='') as csvfile:
         writer = csv.writer(csvfile, delimiter=' ', dialect='excel')
         writer.writerow(index)
 
 
-def read_results():
-    """
-    :param: takes the filepath as input for which file to read
-    :return: returns the entire csv as list of lists
-    """
+""" Read the classification results for categorization from a file corresponding to the given file path.
+Returns the entire csv as list of lists"""
+
+
+def read_classification_results():
     result = []
-    with open('results.csv') as csvfile:
+    with open('../category/csv/resultstest.csv') as csvfile:
         data = csv.reader(csvfile, delimiter=';', quotechar='"')
         for row in data:
-            result.append(row[0])
+            result.append(row)
     return result
 
 
-def write_file(filePath, data):
-    with open(filePath, 'w') as file:
+""""Get the category names and corresponding ids as a dictionary"""
+
+
+def get_classification_names():
+    keys = []
+    values = []
+    with open('../category/csv/mapping.csv') as csvfile:
+        data = csv.reader(csvfile, delimiter=';', quotechar='"')
+        for row in data:
+            keys.append(row[0])
+            values.append(row[1])
+    return dict(zip(keys, values))
+
+
+"""Write given data to a file corresponding to the given file path."""
+
+
+def write_file(file_path, data):
+    with open(file_path, 'w') as file:
         for item in data:
             file.write("%s\n" % item)
 
 
-def read_file(filePath):
-    """
-    :return: returns all the words which to crawl
-    """
+"""Read a file corresponding to the given file path.
+Return the content of the file"""
+
+
+def read_file(file_path):
     result = []
-    with open(filePath) as csvfile:
+    with open(file_path) as csvfile:
         data = csv.reader(csvfile, delimiter=';', quotechar='"')
         for row in data:
             result.append(row)

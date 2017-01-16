@@ -1,7 +1,13 @@
 import pandas as pd
 
+""""Helper class for processing data that needs to be loaded into the machine learning algorithm"""
+
+""""Get the raw learning data as a Pandas DataFrame from the csv files based on if the machine learning
+algorithm needs to check scope vs no-scope or website vs web shop"""
+
 
 def get_raw_data(check_scope):
+    # Load csv files
     if check_scope:
         positive = pd.read_csv("../ml/csv/scope.csv", delimiter=';')
         negative = pd.read_csv("../ml/csv/noscope.csv", delimiter=';')
@@ -11,91 +17,45 @@ def get_raw_data(check_scope):
 
     scope_length = len(positive)
 
+    # Combine into one DataFrame
     data = pd.concat([positive, negative], ignore_index=True)
     data['Label'] = 0
 
+    # Add label based on if the data represents a positive or negative result.
     for index, row in data.iterrows():
         label = 1 if index < scope_length else 0
         data.set_value(index, 'Label', label)
 
-    # data = data.iloc[np.random.permutation(len(data))]
-    # print(data)
-
     return data
+
+
+""""Get the data for website vs web shop checking"""
 
 
 def get_scope_data():
     return get_raw_data(True)
 
 
+""""Get the data for scope vs no-scope checking"""
+
+
 def get_webshop_data():
     return get_raw_data(False)
 
 
-def get_data():
-    data = get_raw_data()
-    # data = data.applymap(lel)
-
-    # print(data)
-
-    return data
+""""Get the data for category checking"""
 
 
-def divided_by_page():
-    return divide_by('PageCount')
+def get_classify_data():
+    return pd.read_csv("../category/csv/results.csv", delimiter=';')
 
 
-def divided_by_word():
-    return divide_by('WordCount')
+""""Divide by method for the PageCount column"""
 
 
-def divide_by(value):
-    data = get_raw_data()
-
-    for column in data.columns.tolist()[1:-3]:
-        data[column] = data[column] / data[value]
-
-    return lel(data)
-
-
-def drop_columns(data):
-    # data = data.drop('PageCount', 1)
-    # data = data.drop('WordCount', 1)
-    # data = data.drop('URL', 1)
-
-    return data
-
-
-def divide_one(value, list):
-    page_count = list[-1]
-    word_count = list[-2]
-
+def remove_columns(value, list):
     del list[-1]
     del list[-1]
     del list[0]
 
-    # for ele, i in enumerate(list):
-    #    if value is 'PageCount':
-    #        list[i] = ele / page_count
-    #    elif value is 'WordCount':
-    #        list[i] = ele / word_count
-
     return list
-
-
-def lel(x):
-    # that, if x is a string,
-    if type(x) is str:
-        # just returns it untouched
-        return x
-    # but, if not, return it multiplied by 100
-    elif x:
-        if x == 0.0:
-            print('zerp')
-
-        zero = x == 0
-        value = 0 if zero else 1
-        return value
-    # and leave everything else
-    else:
-        return

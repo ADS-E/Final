@@ -33,6 +33,12 @@ def updateInfo(update):
     posts.update({"id": id}, update)
 
 
+def updateValue(update, value):
+    id = update['id']
+    # Updates a specific document with the new data
+    posts.update({'id': id}, {'$set': {value: update[value]}})
+
+
 def getResultById(id):
     # Gets a document given an id
     return posts.find_one({"id": id})

@@ -1,70 +1,72 @@
 from sklearn.externals import joblib
 from sklearn.naive_bayes import GaussianNB
 
+import multiprocessing
 import os.path
-import numpy as np
+from queue import Queue
+
+from sklearn.externals import joblib
+from sklearn.naive_bayes import GaussianNB
 
 import MongoHelper
 from ml import Evaluator
 from helpers import MLHelper
 from ml import SetsHelper
-from webcrawler.Spider import Spider
+from ml.MLProcessor import MLProcessor
 
 """"Class used to feed the found websites through the Machine Learning algorithms"""
+
+
 class ML:
     def __init__(self, check_scope):
         self.check_scope = check_scope
+        self.queue = Queue()
+        self.threads = []
+        self.clf = None
 
     """Get the Naive Bayes classifier or if it doesn't exist create one.
     For all the entries in MongoDB get the html content. Run this content through the spider
     to get the word occurences. Feed this data through the algorithm and save the result to the
     'ml' parameter of the entry in MongoDB"""
+
     def start(self):
         print("---------- ML Starting Scope: %s ----------" % self.check_scope)
 
         plk = 'scope.pkl' if self.check_scope else 'webshop.pkl'
 
         if os.path.isfile(plk):
-            clf = joblib.load(plk)
+            self.clf = joblib.load(plk)
         else:
-            clf = self.build_classifier()
+            self.clf = self.build_classifier()
+            joblib.dump(self.clf, plk)
 
-        print("Nr of items: %s" % MongoHelper.count())
-        for id in MongoHelper.getAllIds():
-            site = MongoHelper.getResultById(id)
-            url = site['url']
-            content = site['content']
+        print("Number of items to analyse: %s" % MongoHelper.count())
+        [self.queue.put(id) for id in MongoHelper.getAllIds()]
 
-            spider = Spider(url, content)
-            result = spider.process()
-            predicted = False
+        self.create_threads()
 
-            if result is not None:
-                result.set_page_count(1)
+        for t in self.threads:
+            t.join()
 
-                list = MLHelper.divide_one('PageCount', result.csv_format())
-                data = np.reshape(list, (1, -1))
+        #self.end()
 
-                predicted = bool(np.asscalar(clf.predict(data)[0]))
+    def create_threads(self):
+        """Create, start and add threads to a list. Threads run an instance of Spider.
+        The amount of threads created depends on the amount of cores found in the system."""
 
-                print("%s predicted: %s" % (url, predicted))
-
-            if self.check_scope:
-                site['webshop'] = predicted
-            else:
-                site['scope'] = predicted
-
-            MongoHelper.updateInfo(site)
-
-        joblib.dump(clf, plk)
-        self.end()
+        for i in range(1, multiprocessing.cpu_count()):
+            name = "Thread-%s" % i
+            thread = MLProcessor(name, self.clf, self.queue, self.check_scope)
+            thread.start()
+            self.threads.append(thread)
 
     """"End the Machine Learning by starting the Decider or the Listing"""
+
     def end(self):
         print("---------- ML Ending Scope: %s ----------" % self.check_scope)
 
         if self.check_scope:
-            from Decider import Decider
+            from decision.Decider import Decider
 
             decider = Decider(True)
             decider.start()
@@ -76,6 +78,7 @@ class ML:
 
     """"Create the classifier by getting the scope or the webshop
      data depending on what the machine learning has to decide. After that fit it with the data"""
+
     def build_classifier(self):
         if self.check_scope:
             data = MLHelper.get_scope_data()

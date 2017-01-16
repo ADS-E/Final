@@ -11,11 +11,11 @@ from webcrawler.UrlResult import UrlResult
 class Spider:
     """"Class used for scanning urls on containing certain words."""
 
-    def __init__(self, url, content):
+    def __init__(self, url, content, path):
         self.url = url
         self.content = content
         self.result = UrlResult(url)
-        self.words = CsvHelper.read_file('../webcrawler/words.csv')
+        self.words = CsvHelper.read_file(path)
 
     def process(self):
         """Count for every word that needs to be checked the amount of times it's found in the page content.
