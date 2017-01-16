@@ -1,6 +1,3 @@
-from sklearn.externals import joblib
-from sklearn.naive_bayes import GaussianNB
-
 import multiprocessing
 import os.path
 from queue import Queue
@@ -9,7 +6,6 @@ from sklearn.externals import joblib
 from sklearn.naive_bayes import GaussianNB
 
 import MongoHelper
-from ml import Evaluator
 from helpers import MLHelper
 from ml import SetsHelper
 from ml.MLProcessor import MLProcessor
@@ -48,10 +44,11 @@ class ML:
         for t in self.threads:
             t.join()
 
-        #self.end()
+            # self.end()
 
     """"Create a number of threads based on the host available amount of threads.
     These threads run an instance of the MLProcessor class"""
+
     def create_threads(self):
         # Creates threads and add them to a list.
         for i in range(1, multiprocessing.cpu_count()):
@@ -92,4 +89,3 @@ class ML:
         clf.fit(X_train, y_train)
 
         return clf
-
