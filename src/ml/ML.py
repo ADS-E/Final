@@ -46,10 +46,10 @@ class ML:
 
         #self.end()
 
+    """"Create a number of threads based on the host available amount of threads.
+    These threads run an instance of the MLProcessor class"""
     def create_threads(self):
-        """Create, start and add threads to a list. Threads run an instance of Spider.
-        The amount of threads created depends on the amount of cores found in the system."""
-
+        # Creates threads and add them to a list.
         for i in range(1, multiprocessing.cpu_count()):
             name = "Thread-%s" % i
             thread = MLProcessor(name, self.clf, self.queue, self.check_scope)
@@ -72,7 +72,7 @@ class ML:
             listing = Listing(False)
             listing.start()
 
-    """"Create the classifier by getting the scope or the webshop
+    """"Create the classifier by getting Website vs Webshop or Scope vs No-scope
      data depending on what the machine learning has to decide. After that fit it with the data"""
 
     def build_classifier(self):
@@ -81,6 +81,7 @@ class ML:
         else:
             data = MLHelper.get_webshop_data()
 
+        # Create train test split
         X_train, X_test, y_train, y_test = SetsHelper.create_sets(data)
 
         clf = GaussianNB()

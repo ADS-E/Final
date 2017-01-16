@@ -53,9 +53,9 @@ def get_classify_data():
 """"Divide by method for the PageCount column"""
 
 
-def remove_columns(value, list):
-    del list[-1]
-    del list[-1]
-    del list[0]
+def remove_columns(data):
+    del data[-1]
+    del data[-1]
+    del data[0]
 
-    return list
+    return data
