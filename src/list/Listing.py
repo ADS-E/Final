@@ -17,8 +17,8 @@ class Listing:
         print("---------- Listing Starting Scope: %s ----------" % self.check_scope)
 
         # Loop though all the found items in MongoDB
-        for id in MongoHelper.getAllIds():
-            site = MongoHelper.getResultById(id)
+        for id in MongoHelper.get_all_Ids():
+            site = MongoHelper.get_result_by_id(id)
 
             if site is not None:
                 # Get the sites that have to be checked on listing depending on
@@ -41,7 +41,7 @@ class Listing:
                 print("Listing: %s is: %s" % (url, value))
 
                 # Save the result to MongoDB
-                MongoHelper.updateValue(site, 'list')
+                MongoHelper.update_value(site, 'list')
 
         self.end()
 

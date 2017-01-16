@@ -27,8 +27,9 @@ class Scan:
         else:
             clf = self.build_classifier()
 
-        for id in MongoHelper.getAllIds():
-            site = MongoHelper.getResultById(id)
+        print("Number of items to analyse: %s" % MongoHelper.count())
+        for id in MongoHelper.get_all_Ids():
+            site = MongoHelper.get_result_by_id(id)
             url = site['url']
             content = site['content']
 
@@ -38,14 +39,14 @@ class Scan:
             if result is not None:
                 result.set_page_count(1)
 
-                list = MLHelper.divide_one('PageCount', result.csv_format())
+                list = MLHelper.remove_columns(result.csv_format())
                 data = np.reshape(list, (1, -1))
                 predicted = self.get_label_text(clf.predict(data)[0])
 
                 print("%s predicted for %s" % (predicted, url))
 
-            site['category'] = predicted
-            MongoHelper.updateInfo(site)
+                site['category'] = predicted
+                MongoHelper.update_value(site, 'category')
 
 
     def build_classifier(self):

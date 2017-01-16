@@ -26,7 +26,7 @@ class Processor(threading.Thread):
         print("%s done" % self.name)
 
     def process(self, id):
-        site = MongoHelper.getResultById(id)
+        site = MongoHelper.get_result_by_id(id)
 
         if self.check_scope:
             # Determines if the website is in or out of scope
@@ -43,12 +43,12 @@ class Processor(threading.Thread):
         if value is True:
             # If the website it in our scope or is a webshop update the info in MongoDB
             if self.check_scope:
-                MongoHelper.updateValue(site, 'scope')
+                MongoHelper.update_value(site, 'scope')
             else:
-                MongoHelper.updateValue(site, 'webshop')
+                MongoHelper.update_value(site, 'webshop')
         else:
             # If the website is out of our scope or not a webshop remove the document from MongoDB
-            MongoHelper.removeByIndex(site["id"])
+            MongoHelper.remove_by_id(site["id"])
 
 
 def decide_scope(site):

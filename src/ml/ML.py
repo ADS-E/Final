@@ -1,3 +1,6 @@
+from sklearn.externals import joblib
+from sklearn.naive_bayes import GaussianNB
+
 import multiprocessing
 import os.path
 from queue import Queue
@@ -6,6 +9,7 @@ from sklearn.externals import joblib
 from sklearn.naive_bayes import GaussianNB
 
 import MongoHelper
+from ml import Evaluator
 from helpers import MLHelper
 from ml import SetsHelper
 from ml.MLProcessor import MLProcessor
@@ -37,7 +41,7 @@ class ML:
             joblib.dump(self.clf, plk)
 
         print("Number of items to analyse: %s" % MongoHelper.count())
-        [self.queue.put(id) for id in MongoHelper.getAllIds()]
+        [self.queue.put(id) for id in MongoHelper.get_all_Ids()]
 
         self.create_threads()
 

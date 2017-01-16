@@ -37,7 +37,7 @@ class MLProcessor(threading.Thread):
         startTotal = time.process_time()
 
         # Get from mongoDB
-        site = MongoHelper.getResultById(id)
+        site = MongoHelper.get_result_by_id(id)
         url = site['url']
         content = site['content']
 
@@ -64,7 +64,7 @@ class MLProcessor(threading.Thread):
             site['scope'] = predicted
 
             # startMongo = time.process_time()
-            MongoHelper.updateValue(site, 'ml')
+            MongoHelper.update_value(site, 'ml')
 
             # endMongo = time.process_time()
             endTotal = time.process_time()

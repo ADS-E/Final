@@ -19,7 +19,7 @@ class Decider:
         print("---------- Decider Starting Scope: %s ----------" % self.check_scope)
 
         # Loop through all currently present id's in MongoDB and add them to a queue for the threads to read from.
-        [self.queue.put(id) for id in MongoHelper.getAllIds()]
+        [self.queue.put(id) for id in MongoHelper.get_all_Ids()]
 
         # Create the threads and wait for them to finish
         self.create_threads()
