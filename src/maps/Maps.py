@@ -10,10 +10,6 @@ class Maps:
     def __init__(self):
         # This is needed to connect with the Google Maps API. The key is a generated key by Google specific for this application.
         self.client = googlemaps.Client(key="AIzaSyCuBnzZ6K_wHln6EFY4VuJ-Jw03yNeL38c")
-        # A dictionary that stores all results for each website
-        self.allresults = {}
-        # The address of a specific url
-        self.url_address = ""
 
     def start(self):
         print("---------- Maps Starting ----------")
@@ -28,15 +24,18 @@ class Maps:
                 inscope = self.determine_scope(results)
                 # Grouping all results together
                 results = [self.url_address] + [inscope] + results
-                # Adding the results to the dictionary
-                self.allresults[site["url"]] = results
-                # Resetting the url address
-                self.url_address = ""
 
                 printable = "Empty" if inscope == -1 else bool(inscope)
                 print("Maps: %s is: %s" % (site['url'], printable))
                 # Changing the maps value to the result given in the previous scan.
                 site["maps"] = inscope
+                site["address"] = self.url_address
+                site["lat"] = self.lat
+                site["lng"] = self.lng
+                # Resetting the url address
+                self.url_address = ""
+                self.lat = 0
+                self.lng = 0
                 # Updating the result in MongoDB
                 MongoHelper.updateInfo(site)
         self.end()
@@ -44,10 +43,15 @@ class Maps:
     def end(self):
         print("---------- Maps Ending ----------")
 
-        from list.Listing import Listing
-        # Starts the Listing part of the application that predicts in or out of scope
-        listing = Listing(True)
-        listing.start()
+        from ml.ML import ML
+
+        ml = ML(True)
+        ml.start()
+
+        # from list.Listing import Listing
+        # # Starts the Listing part of the application that predicts in or out of scope
+        # listing = Listing(True)
+        # listing.start()
 
     def extract_from_url(self, url):
         # Uses a regex method to extract the hostname from the URL
@@ -65,13 +69,15 @@ class Maps:
                 print("No types, getting name")
             return result
 
-    def check_details(self, url, placeid):
+    def check_details(self, url, placeid, resultCount):
         # Performs another API call to get more details
         details = places.place(self.client, placeid)
         result = details["result"]
         try:
             # Gets the website from the results
-            result_website = result["website"]
+            result_website = None
+            if("website" in result):
+                result_website = result["website"]
             if result_website is not None:
                 currentUrl = url
                 if "www" in currentUrl:
@@ -81,14 +87,20 @@ class Maps:
                 if currentUrl == self.extract_from_url(result_website):
                     # Gets the adress of the result and returns it
                     result_address = result["formatted_address"]
+                    self.lat = result["geometry"]["location"]["lat"]
+                    self.lng = result["geometry"]["location"]["lng"]
                     return result_address
+            elif resultCount == 1:
+                self.lat = result["geometry"]["location"]["lat"]
+                self.lng = result["geometry"]["location"]["lng"]
+                return result["formatted_address"]
             return None
         except KeyError:
             return None
 
-    def get_types(self, url, dict):
+    def get_types(self, url, dict, resultCount):
         # Gets address for a specific webshop
-        address = self.check_details(url, dict["place_id"])
+        address = self.check_details(url, dict["place_id"],resultCount)
         if address is not None:
             self.url_address = address
             try:
@@ -108,8 +120,8 @@ class Maps:
         if results is not None:
             # Loops through the results and adds all the types of buildings to a list
             for result in results:
-                resultList = resultList + [self.get_types(url, result)]
-        if "www" in url:
+                resultList = resultList + [self.get_types(url, result, len(results))]
+        if "www" in url or "http" in url:
             # Performs another API call but only with the company name
             resultList = resultList + self.scan_url(self.extract_from_url(url))
         return resultList
