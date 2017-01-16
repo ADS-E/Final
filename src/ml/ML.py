@@ -1,10 +1,11 @@
 from sklearn.externals import joblib
-from sklearn.naive_bayes import MultinomialNB
+from sklearn.naive_bayes import GaussianNB
 
 import os.path
 import numpy as np
 
 import MongoHelper
+from ml import Evaluator
 from helpers import MLHelper
 from ml import SetsHelper
 from webcrawler.Spider import Spider
@@ -85,6 +86,6 @@ class ML:
 
         clf = GaussianNB()
         clf.fit(X_train, y_train)
-
+        Evaluator.train_and_evaluate(clf,X_train,X_test,y_train,y_test)
         return clf
 
