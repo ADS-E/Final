@@ -8,23 +8,23 @@ from list.Spider import Spider
 
 threads = []
 
-
-class Crawler:
-    """"Class responsible for crawling urls concurrently.
+""""Class responsible for crawling urls concurrently.
     A file with all the Listing websites needed to be scanned and the website name to be found are given."""
 
-    def __init__(self, sitename, file):
-        """"Assign all the sites in the file to the queue and create an UrlResult to save the data to"""
 
+class Crawler:
+    """"Assign all the sites in the file to the queue and create an UrlResult to save the data to"""
+
+    def __init__(self, sitename, file):
         self.queue = Queue()
-        for url in CsvHelper.read_file(file):
-            self.queue.put(url)
+        [self.queue.put(url) for url in CsvHelper.read_file(file)]
 
         self.result = UrlResult(sitename)
 
+    """ Create the necessary threads.
+    Wait until the queue is empty and join all the running threads."""
+
     def run(self):
-        """ Create the necessary threads.
-        Wait until the queue is empty and join all the running threads."""
         self.create_threads()
 
         while not self.queue.empty():
@@ -35,10 +35,11 @@ class Crawler:
 
         return self.result
 
-    def create_threads(self):
-        """Create, start and add threads to a list. Threads run an instance of Spider.
-        The amount of threads created depends on the amount of cores found in the system."""
+    """"Create a number of threads based on the host available amount of threads.
+    These threads run an instance of the Spider class"""
 
+    def create_threads(self):
+        # Creates threads and add them to a list.
         for i in range(1, multiprocessing.cpu_count()):
             name = "Thread-%s" % i
             thread = Spider(name, self.queue, self.result)

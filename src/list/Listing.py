@@ -16,14 +16,18 @@ class Listing:
     def start(self):
         print("---------- Listing Starting Scope: %s ----------" % self.check_scope)
 
-        for id in MongoHelper.getAllIds():
-            site = MongoHelper.getResultById(id)
+        # Loop though all the found items in MongoDB
+        for id in MongoHelper.get_all_Ids():
+            site = MongoHelper.get_result_by_id(id)
 
             if site is not None:
+                # Get the sites that have to be checked on listing depending on
+                #  if Website vs Webshop or Scope vs no-Scope needs to be checked.
                 url = site["url"]
                 sitename = take_sitename(url)
                 csv_file = '../list/csv/scope_certain.csv' if self.check_scope else '../list/csv/webshop_certain.csv'
 
+                # Start the crawling process
                 result = Crawler(sitename, csv_file).run()
 
                 if self.check_scope:
@@ -36,7 +40,8 @@ class Listing:
 
                 print("Listing: %s is: %s" % (url, value))
 
-                MongoHelper.updateInfo(site)
+                # Save the result to MongoDB
+                MongoHelper.update_value(site, 'list')
 
         self.end()
 

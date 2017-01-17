@@ -2,6 +2,8 @@ import threading
 
 lock = threading.Lock()
 
+""""Class keeping track of all the results of a crawling scan"""
+
 
 class UrlResult:
     def __init__(self, url):

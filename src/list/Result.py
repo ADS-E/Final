@@ -4,6 +4,8 @@ lock = threading.Lock()
 
 """"Class to save data about a webshop listing scan.
 The website name and if it was found are saved."""
+
+
 class UrlResult:
     def __init__(self, sitename):
         self._results = {}
@@ -17,12 +19,6 @@ class UrlResult:
 
     def get_found(self):
         return self.found
-
-    def seturl(self, url):
-        self._url = url
-
-    def geturl(self):
-        return self._url
 
     def get_sitename(self):
         return self.sitename

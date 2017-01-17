@@ -42,7 +42,7 @@ class Downloader(threading.Thread):
             # If the content is not empty set the year of the commoncrawl archive the url was retrieved from
             if not html_content.isspace():
                 year = int(self.index[:4])
-                MongoHelper.insertURLInfo(url, html_content, year)
+                MongoHelper.insert_URL_info(url, html_content, year)
 
                 print("%s retrieved %d bytes for %s" % (self.name, len(html_content), url))
         except Exception as e:

@@ -7,10 +7,10 @@ import MongoHelper
 from helpers import MLHelper
 from webcrawler.Spider import Spider
 
+""""Class inheriting a thread responsible for running the machine learning process"""
+
 
 class MLProcessor(threading.Thread):
-    """"Class used for scanning urls on containing certain words."""
-
     def __init__(self, name, clf, queue, check_scope):
         threading.Thread.__init__(self)
         self.name = name
@@ -18,10 +18,10 @@ class MLProcessor(threading.Thread):
         self.queue = queue
         self.check_scope = check_scope
 
-    def run(self):
-        """"Get an url from the queue, process the url and notify the queue the task on the retrieved item is done.
-        Continue this process while the queue has items"""
+    """"Get an id from the queue, process the id and notify the queue the task on the retrieved item is done.
+    Continue this process while the queue has items"""
 
+    def run(self):
         while not self.queue.empty():
             id = self.queue.get()
 
@@ -30,13 +30,18 @@ class MLProcessor(threading.Thread):
 
         print("%s done" % self.name)
 
+    """Scan the item retrieved by the given id, run in through the machine learning algorithm and
+    save the result"""
+
     def process(self, id):
         startTotal = time.process_time()
 
-        site = MongoHelper.getResultById(id)
+        # Get from mongoDB
+        site = MongoHelper.get_result_by_id(id)
         url = site['url']
         content = site['content']
 
+        # Crawl the site content and count the words
         spider = Spider(url, content, '../webcrawler/words.csv')
         result = spider.process()
         predicted = False
@@ -44,6 +49,7 @@ class MLProcessor(threading.Thread):
         if result is not None:
             result.set_page_count(1)
 
+            # Predictions
             list = MLHelper.remove_columns(result.csv_format())
             data = np.reshape(list, (1, -1))
 
@@ -57,14 +63,14 @@ class MLProcessor(threading.Thread):
         else:
             site['scope'] = predicted
 
-            #startMongo = time.process_time()
-            MongoHelper.updateValue(site, 'ml')
+            # startMongo = time.process_time()
+            MongoHelper.update_value(site, 'ml')
 
-            #endMongo = time.process_time()
+            # endMongo = time.process_time()
             endTotal = time.process_time()
 
-            #resultMongo = endMongo - startMongo
+            # resultMongo = endMongo - startMongo
             resultTotal = endTotal - startTotal
 
-           # print("Mongo: %s" % resultMongo)
+            # print("Mongo: %s" % resultMongo)
             print("Total: %s" % resultTotal)
