@@ -37,7 +37,8 @@ class MapsProcessor(threading.Thread):
         inscope = self.determine_scope(results)
 
         printable = "Empty" if inscope == -1 else bool(inscope)
-        print("Maps: %s is: %s" % (site['url'], printable))
+        print("Thread-%s: Maps: %s is: %s with lat: %s / long: %s" % (
+        self.name, site['url'], printable, self.lat, self.lng))
 
         # Changing the maps value to the result given in the previous scan.
         site["maps"] = inscope
@@ -75,7 +76,7 @@ class MapsProcessor(threading.Thread):
         result = details["result"]
         try:
             address_component = result["address_components"]
-            for x in range(0,len(address_component)):
+            for x in range(0, len(address_component)):
                 if "country" in address_component[x]["types"]:
                     test = address_component[x]["short_name"]
                     if test != "NL":
