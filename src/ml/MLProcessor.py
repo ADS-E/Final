@@ -34,8 +34,6 @@ class MLProcessor(threading.Thread):
     save the result"""
 
     def process(self, id):
-        startTotal = time.process_time()
-
         # Get from mongoDB
         site = MongoHelper.get_result_by_id(id)
         url = site['url']
@@ -58,19 +56,5 @@ class MLProcessor(threading.Thread):
             message = "Scope vs No-scope" if self.check_scope else "Website vs Webshop"
             print("%s predicted: %s for %s as %s" % (self.name, predicted, url, message))
 
-        if self.check_scope:
-            site['webshop'] = predicted
-        else:
-            site['scope'] = predicted
-
-            # startMongo = time.process_time()
+            site['ml'] = predicted
             MongoHelper.update_value(site, 'ml')
-
-            # endMongo = time.process_time()
-            endTotal = time.process_time()
-
-            # resultMongo = endMongo - startMongo
-            resultTotal = endTotal - startTotal
-
-            # print("Mongo: %s" % resultMongo)
-            print("Total: %s" % resultTotal)

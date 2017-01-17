@@ -42,10 +42,10 @@ class Processor(threading.Thread):
         print("Decided: %s is: %s" % (site['url'], value))
         if value is True:
             # If the website it in our scope or is a webshop update the info in MongoDB
-            if self.check_scope:
-                MongoHelper.update_value(site, 'scope')
-            else:
-                MongoHelper.update_value(site, 'webshop')
+            site['ml'] = False
+            site['listing'] = False
+
+            MongoHelper.update_info(site)
         else:
             # If the website is out of our scope or not a webshop remove the document from MongoDB
             MongoHelper.remove_by_id(site["id"])
