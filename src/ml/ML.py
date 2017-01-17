@@ -22,7 +22,7 @@ class ML:
 
     """Get the Naive Bayes classifier or if it doesn't exist create one.
     For all the entries in MongoDB get the html content. Run this content through the spider
-    to get the word occurences. Feed this data through the algorithm and save the result to the
+    to get the word occurrences. Feed this data through the algorithm and save the result to the
     'ml' parameter of the entry in MongoDB"""
 
     def start(self):
@@ -44,7 +44,7 @@ class ML:
         for t in self.threads:
             t.join()
 
-            # self.end()
+        # self.end()
 
     """"Create a number of threads based on the host available amount of threads.
     These threads run an instance of the MLProcessor class"""
