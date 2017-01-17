@@ -1,6 +1,6 @@
 import threading
 
-import MongoHelper
+from helpers import MongoHelper
 
 """"Class inheriting a thread responsible for the processing part of the decision and updating this in MongoDb"""
 

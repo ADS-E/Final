@@ -1,9 +1,9 @@
-import threading
 import re
+import threading
 
 from googlemaps import places
 
-import MongoHelper
+from helpers import MongoHelper
 
 """"Class inheriting a thread responsible for downloading and storing the content found for a url."""
 

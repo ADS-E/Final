@@ -1,10 +1,8 @@
 import threading
 
 import numpy as np
-import time
 
-import MongoHelper
-from helpers import MLHelper
+from helpers import MLHelper, MongoHelper
 from webcrawler.Spider import Spider
 
 """"Class inheriting a thread responsible for running the machine learning process"""
@@ -40,7 +38,7 @@ class MLProcessor(threading.Thread):
         content = site['content']
 
         # Crawl the site content and count the words
-        spider = Spider(url, content, '../webcrawler/words.csv')
+        spider = Spider(url, content, '../webcrawler/csv/words.csv')
         result = spider.process()
         predicted = False
 

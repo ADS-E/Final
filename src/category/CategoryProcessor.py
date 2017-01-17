@@ -2,8 +2,7 @@ import threading
 
 import numpy as np
 
-import MongoHelper
-from helpers import MLHelper
+from helpers import MLHelper, MongoHelper
 from webcrawler.Spider import Spider
 
 """"Class inheriting a thread responsible for running the machine learning process"""

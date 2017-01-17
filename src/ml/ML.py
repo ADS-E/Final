@@ -5,8 +5,7 @@ from queue import Queue
 from sklearn.externals import joblib
 from sklearn.naive_bayes import GaussianNB
 
-import MongoHelper
-from helpers import MLHelper
+from helpers import MLHelper, MongoHelper, SetsHelper
 from ml import SetsHelper
 from ml.MLProcessor import MLProcessor
 

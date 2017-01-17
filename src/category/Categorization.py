@@ -1,21 +1,19 @@
 import multiprocessing
+import os.path
 from queue import Queue
 
 from sklearn.externals import joblib
 from sklearn.naive_bayes import GaussianNB
 
-import MongoHelper
 from category.CategoryProcessor import CategoryProcessor
-from helpers import MLHelper
+from helpers import FileHelper, SetsHelper
+from helpers import MLHelper, MongoHelper
 from ml import SetsHelper
-from helpers import CsvHelper
-
-import os.path
 
 
 class Scan:
     def __init__(self):
-        self.mapping = CsvHelper.get_classification_names()
+        self.mapping = FileHelper.get_classification_names()
         self.queue = Queue()
         self.threads = []
         self.clf = None

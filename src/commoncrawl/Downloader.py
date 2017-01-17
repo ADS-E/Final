@@ -1,14 +1,13 @@
+import gzip
+import io
+import json
 import threading
 
 import lxml.html
+import requests
 from lxml import etree
 
-import requests
-import json
-import io
-import gzip
-
-import MongoHelper
+from helpers import MongoHelper
 
 """"Class inheriting a thread responsible for downloading and storing the content found for a url."""
 

@@ -2,8 +2,8 @@ import multiprocessing
 from queue import Queue
 
 import googlemaps
-import MongoHelper
 
+from helpers import MongoHelper
 from maps.MapsProcessor import MapsProcessor
 
 """"Class used to look up found websites with the google maps api and find usefull data"""

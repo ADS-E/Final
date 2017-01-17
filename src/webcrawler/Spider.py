@@ -4,7 +4,7 @@ import threading
 import lxml.html
 from lxml import etree
 
-from helpers import CsvHelper
+from helpers import FileHelper
 from webcrawler.UrlResult import UrlResult
 
 """"Class used for scanning urls on containing certain words."""
@@ -17,7 +17,7 @@ class Spider:
         self.url = url
         self.content = content
         self.result = UrlResult(url)
-        self.words = CsvHelper.read_file(path)
+        self.words = FileHelper.read_file(path)
 
     """Count for every word that needs to be checked the amount of times it's found in the page content.
        Add this result to the UrlResult as a key and value pair."""

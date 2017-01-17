@@ -1,4 +1,4 @@
-import MongoHelper
+from helpers import MongoHelper
 from list import Specialized
 from list.Crawler import Crawler
 

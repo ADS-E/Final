@@ -2,7 +2,7 @@ import multiprocessing
 import time
 from queue import Queue
 
-from helpers import CsvHelper
+from helpers import FileHelper
 from list.Result import UrlResult
 from list.Spider import Spider
 
@@ -17,7 +17,7 @@ class Crawler:
 
     def __init__(self, sitename, file):
         self.queue = Queue()
-        [self.queue.put(url) for url in CsvHelper.read_file(file)]
+        [self.queue.put(url) for url in FileHelper.read_file(file)]
 
         self.result = UrlResult(sitename)
 

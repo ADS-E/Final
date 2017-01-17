@@ -10,7 +10,7 @@ import zlib
 from urllib.parse import urlparse
 
 from commoncrawl.Downloader import Downloader
-from helpers import CsvHelper
+from helpers import FileHelper
 
 INDEX = "2016-07"
 BASEURL = 'https://aws-publicdatasets.s3.amazonaws.com/'
@@ -90,7 +90,7 @@ class CommonCrawl:
                             assert False
 
             print("Done searching, found %d urls" % len(record_list))
-            CsvHelper.write_file('urls.txt', sorted(record_list))
+            FileHelper.write_file('urls.txt', sorted(record_list))
             print("Done writing to file")
 
     """"Downloading all the found urls"""
@@ -98,7 +98,7 @@ class CommonCrawl:
     def download_found(self):
         # Put all the found urls into a queue for the threads to read from
         self.queue = Queue()
-        [self.queue.put(url) for url in CsvHelper.read_file('urls.txt')]
+        [self.queue.put(url) for url in FileHelper.read_file('urls.txt')]
 
         # Create the threads and wait for them to finish
         self.create_threads()

@@ -1,8 +1,8 @@
 import multiprocessing
 from queue import Queue
 
-import MongoHelper
 from decision.DecisionProcessor import Processor
+from helpers import MongoHelper
 
 """""Class responsible for looking at the results of all analysing methods
 and according to this data deciding what should happen to the scanned sites."""
