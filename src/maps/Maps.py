@@ -41,12 +41,7 @@ class Maps:
     def end(self):
         print("---------- Maps Ending ----------")
 
-        from ml.ML import ML
-
-        ml = ML(True)
-        ml.start()
-
-        # from list.Listing import Listing
-        # # Starts the Listing part of the application that predicts in or out of scope
-        # listing = Listing(True)
-        # listing.start()
+        from list.Listing import Listing
+        # Starts the Listing part of the application that predicts in or out of scope
+        listing = Listing(True)
+        listing.start()

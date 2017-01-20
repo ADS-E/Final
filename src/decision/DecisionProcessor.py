@@ -5,7 +5,7 @@ from helpers import MongoHelper
 """"Class inheriting a thread responsible for the processing part of the decision and updating this in MongoDb"""
 
 
-class Processor(threading.Thread):
+class DecisionProcessor(threading.Thread):
     def __init__(self, name, queue, check_scope):
         threading.Thread.__init__(self)
         self.name = name

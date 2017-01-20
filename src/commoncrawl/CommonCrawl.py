@@ -29,8 +29,8 @@ class CommonCrawl:
     def start(self):
         print("---------- CommonCrawl Starting ----------")
 
-        # self.search_commoncrawl()
-        # self.download_found()
+        self.search_commoncrawl()
+        self.download_found()
 
         self.end()
 

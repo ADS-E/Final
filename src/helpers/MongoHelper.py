@@ -1,5 +1,4 @@
 from pymongo import MongoClient
-from urllib.request import urlopen
 
 """"Class responsible for handling the MongoDB connection"""
 

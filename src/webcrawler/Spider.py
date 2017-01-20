@@ -1,5 +1,4 @@
 import re
-import threading
 
 import lxml.html
 from lxml import etree

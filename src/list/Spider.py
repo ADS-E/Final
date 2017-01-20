@@ -1,9 +1,7 @@
 import re
 import threading
-import pickle
 
 import lxml.html
-import requests
 from lxml import etree
 
 """"Class used for scanning urls on containing certain words."""

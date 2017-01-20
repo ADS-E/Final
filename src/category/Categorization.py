@@ -8,10 +8,9 @@ from sklearn.naive_bayes import GaussianNB
 from category.CategoryProcessor import CategoryProcessor
 from helpers import FileHelper, SetsHelper
 from helpers import MLHelper, MongoHelper
-from ml import SetsHelper
 
 
-class Scan:
+class Categorization:
     def __init__(self):
         self.mapping = FileHelper.get_classification_names()
         self.queue = Queue()

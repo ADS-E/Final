@@ -40,7 +40,6 @@ class MLProcessor(threading.Thread):
         # Crawl the site content and count the words
         spider = Spider(url, content, '../webcrawler/csv/words.csv')
         result = spider.process()
-        predicted = False
 
         if result is not None:
             result.set_page_count(1)

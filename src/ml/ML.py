@@ -6,7 +6,6 @@ from sklearn.externals import joblib
 from sklearn.naive_bayes import GaussianNB
 
 from helpers import MLHelper, MongoHelper, SetsHelper
-from ml import SetsHelper
 from ml.MLProcessor import MLProcessor
 
 """"Class used to feed the found websites through the Machine Learning algorithms"""
@@ -43,7 +42,7 @@ class ML:
         for t in self.threads:
             t.join()
 
-        # self.end()
+        self.end()
 
     """"Create a number of threads based on the host available amount of threads.
     These threads run an instance of the MLProcessor class"""

@@ -1,7 +1,7 @@
 import multiprocessing
 from queue import Queue
 
-from decision.DecisionProcessor import Processor
+from decision.DecisionProcessor import DecisionProcessor
 from helpers import MongoHelper
 
 """""Class responsible for looking at the results of all analysing methods
@@ -36,7 +36,7 @@ class Decider:
         # Creates threads and add them to a list.
         for i in range(1, multiprocessing.cpu_count()):
             name = "Thread-%s" % i
-            thread = Processor(name, self.queue, self.check_scope)
+            thread = DecisionProcessor(name, self.queue, self.check_scope)
             thread.start()
             self.threads.append(thread)
 
@@ -44,6 +44,12 @@ class Decider:
         print("---------- Decider Ending Scope: %s ----------" % self.check_scope)
 
         if not self.check_scope:
+            # If done with checking scope/no-scope continue with the Categorization
+            from category.Categorization import Categorization
+
+            categorization = Categorization()
+            categorization.start()
+        else:
             # If done with checking website/webshop continue with Maps
             from maps.Maps import Maps
 
